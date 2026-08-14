@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../../../utils/supabase";
-
+import Logo from '../../../assets/FitPlan_AI_Individual_Assets/logo.png'
 import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -158,14 +158,10 @@ function Login() {
         {/* Logo / Brand */}
         <div className="text-center mb-4">
           <h3
-            className="fw-bold mb-1"
-            style={{
-              fontSize: "24px",
-              letterSpacing: "-0.5px",
-            }}
+            className="py-1"
+         
           >
-            <span style={{ color: "#bfff00" }}>FP</span>{" "}
-            FitPlan AI
+           <img src={Logo} alt="AS fitness" width={150} />
           </h3>
 
           <p

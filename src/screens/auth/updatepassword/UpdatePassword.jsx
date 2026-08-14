@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Logo from '../../../assets/FitPlan_AI_Individual_Assets/logo.png'
 
 function UpdatePassword() {
   const [passwordsee, setPasswordsee] = useState(false);
@@ -108,15 +109,11 @@ function UpdatePassword() {
         {/* Brand */}
         <div className="text-center mb-4">
           <h3
-            className="fw-bold mb-1"
-            style={{
-              fontSize: "24px",
-              letterSpacing: "-0.5px",
-            }}
+            className="py-1"
+         
           >
-            <span style={{ color: "#bfff00" }}>FP</span>{" "}
-            FitPlan AI
-          </h3>
+                      <img src={Logo} alt="AS Fitness" width={150}/>
+                    </h3>
 
           <p
             className="mb-0"

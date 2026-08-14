@@ -4,7 +4,7 @@ import Logo from "../../../assets/FitPlan_AI_Individual_Assets/logo.png";
 
 function Header() {
   return (
-    <header className="bg-black border-bottom border-dark position-relative">
+    <header className="bg-black border-bottom py-1 border-dark position-fixed" style={{right:'0',left:'0',zIndex:'999'}}>
       
       <nav className="navbar navbar-dark px-3 px-lg-5 py-2">
 
@@ -13,7 +13,7 @@ function Header() {
           <img
             src={Logo}
             alt="FitPlan AI"
-            style={{ width: "145px" }}
+            style={{ width: "150px" }}
           />
         </Link>
 
@@ -41,25 +41,13 @@ function Header() {
           </a>
 
           <a
-            href="#how-it-works"
+            href="#features"
             className="text-white text-decoration-none"
           >
-            How It Works
+           Learn More
           </a>
 
-          <a
-            href="#contact"
-            className="text-white text-decoration-none"
-          >
-            Contact Us
-          </a>
-
-          <a
-            href="#about"
-            className="text-white text-decoration-none"
-          >
-            About Us
-          </a>
+        
 
           <Link
             to="/signup"

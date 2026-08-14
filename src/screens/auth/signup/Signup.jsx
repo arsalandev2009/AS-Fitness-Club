@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../../../utils/supabase";
-
+import Logo from '../../../assets/FitPlan_AI_Individual_Assets/logo.png'
 import Swal from "sweetalert2";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FiSend } from "react-icons/fi";
@@ -124,14 +124,10 @@ function Signup() {
           {/* Brand */}
           <div className="text-center mb-4">
             <div
-              className="fw-bold"
-              style={{
-                color: "#bfff00",
-                fontSize: "28px",
-                letterSpacing: "-1px",
-              }}
+             className="py-1"
+              
             >
-              FP <span style={{ color: "#fff" }}>FitPlan AI</span>
+            <img src={Logo} alt="AS Fitness" width={150}/>
             </div>
 
             <p
@@ -163,7 +159,7 @@ function Signup() {
                   color: "#fff",
                 }}
               >
-                Create Your <span style={{ color: "#bfff00" }}>Plan.</span>
+                Create Your <span style={{ color: "#bfff00" }}>Account.</span>
               </h2>
 
               <p

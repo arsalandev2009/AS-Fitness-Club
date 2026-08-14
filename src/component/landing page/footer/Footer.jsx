@@ -227,7 +227,7 @@ function Footer() {
           <div className="text-center">
 
             <p className="text-secondary small mb-0">
-              © 2026 FitPlan AI. All rights reserved.
+              © 2026 AS Fitness Club. All rights reserved.
             </p>
 
           </div>

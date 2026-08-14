@@ -261,7 +261,7 @@
    VERY SMALL 320px
 ========================= */
 
-@media (max-width: 350px) {
+@media (max-width: 320px) {
 
   .hero-section .container {
     padding-left: 16px;
@@ -269,7 +269,7 @@
   }
 
   .hero-title {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
 
   .hero-description {
