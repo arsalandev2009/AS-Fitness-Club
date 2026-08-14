@@ -66,7 +66,7 @@ function Signup() {
       confirmButtonText: "OK!",
       confirmButtonColor: "#0d6efd",
     }).then(() => {
-      navigate("/");
+      navigate("/login");
     });
   };
 

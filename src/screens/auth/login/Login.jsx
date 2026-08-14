@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../../../utils/supabase";
 
@@ -6,14 +6,30 @@ import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Login() {
-
-  const [passwordsee,setPasswordsee]=useState(false)
-  const navigate = useNavigate();
-
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
+
+  const [adminauth, setAdminauth] = useState("");
+
+  const [passwordsee, setPasswordsee] = useState(false);
+
+  useEffect(() => {
+    const getadmindata = async () => {
+      const { data: admindata, error: adminerror } = await supabase
+        .from("admin-auth")
+        .select("email,password")
+        .single();
+      if (adminerror) {
+        console.log(adminerror);
+        return;
+      }
+      setAdminauth(admindata);
+    };
+    getadmindata();
+  }, []);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setLoginData((prev) => ({
@@ -24,6 +40,24 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      adminauth &&
+      loginData.email.trim() === adminauth.email.trim() &&
+      loginData.password.trim() === adminauth.password.trim()
+    ) {
+      Swal.fire({
+        icon: "success",
+        title: "Login Successfully!",
+        text: "Redirecting to dashboard...",
+        timer: 2500,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      }).then(() => {
+        navigate("/admin-dashboard");
+      });
+      return;
+    }
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email: loginData.email,
@@ -41,15 +75,34 @@ function Login() {
         .from("Auth")
         .select("role")
         .eq("id", data.user.id)
-        .single();
+        .maybeSingle();
 
       if (getError) {
         alert(getError.message);
         return;
       } else if (getData.role === "member") {
-        navigate("/member-dashboard");
-      } else {
-        navigate("/coach-dashboard");
+        Swal.fire({
+          icon: "success",
+          title: "Login Successfully!",
+          text: "Redirecting to dashboard...",
+          timer: 2500,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate("/member-dashboard");
+        });
+        return;
+      } else if (getData.role === "coach") {
+        Swal.fire({
+          icon: "success",
+          title: "Login Successfully!",
+          text: "Redirecting to dashboard...",
+          timer: 2500,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        }).then(() => {
+          navigate("/coach-dashboard");
+        });
       }
     }
   };
@@ -76,29 +129,29 @@ function Login() {
             />
           </div>
 
-           <div className="mb-3">
-                      <label className="form-label">Password</label>
-          
-                      <div className="input-group">
-                        <input
-                          type={passwordsee ? "text" : "password"}
-                          name="password"
-                          className="form-control"
-                          value={loginData.password}
-                          onChange={handleChange}
-                          placeholder="Enter Your Password"
-                          required
-                        />
-          
-                        <span
-                          className="input-group-text"
-                          style={{ cursor: "pointer" }}
-                          onClick={() => setPasswordsee(!passwordsee)}
-                        >
-                          {passwordsee ? <FaEyeSlash /> : <FaEye />}
-                        </span>
-                      </div>
-                    </div>
+          <div className="mb-3">
+            <label className="form-label">Password</label>
+
+            <div className="input-group">
+              <input
+                type={passwordsee ? "text" : "password"}
+                name="password"
+                className="form-control"
+                value={loginData.password}
+                onChange={handleChange}
+                placeholder="Enter Your Password"
+                required
+              />
+
+              <span
+                className="input-group-text"
+                style={{ cursor: "pointer" }}
+                onClick={() => setPasswordsee(!passwordsee)}
+              >
+                {passwordsee ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+          </div>
 
           <div className="text-center mb-3">
             <Link
