@@ -1,0 +1,284 @@
+
+
+
+
+
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero-section {
+  width: 100%;
+  background: #000;
+  min-height: calc(100vh - 70px);
+}
+
+.hero-section .container {
+  max-width: 1200px;
+}
+
+
+/* =========================
+   LEFT
+========================= */
+
+.hero-badge {
+  color: #bfff00;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.hero-title {
+  font-size: clamp(3rem, 5vw, 5rem);
+  line-height: 1.02;
+  font-weight: 800;
+  margin: 0 0 25px;
+  color: white;
+}
+
+.hero-title span {
+  color: #bfff00;
+}
+
+.hero-description {
+  max-width: 540px;
+  color: #888;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 45px;
+}
+
+.hero-primary-btn {
+  background: #bfff00;
+  color: #000;
+  font-weight: 700;
+  padding: 12px 20px;
+  border-radius: 6px;
+}
+
+.hero-primary-btn:hover {
+  background: #bfff00;
+  color: #000;
+}
+
+.hero-secondary-btn {
+  color: white;
+  border: 1px solid #777;
+  padding: 12px 20px;
+  border-radius: 6px;
+}
+
+.hero-secondary-btn:hover {
+  color: #bfff00;
+  border-color: #bfff00;
+}
+
+
+/* =========================
+   SMALL FEATURES
+========================= */
+
+.hero-features {
+  max-width: 600px;
+}
+
+.hero-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-feature span {
+  color: #bfff00;
+  font-size: 20px;
+}
+
+.hero-feature p {
+  color: #ddd;
+  font-size: 13px;
+  margin: 0;
+}
+
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.hero-right {
+  width: 100%;
+  min-height: 500px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+}
+
+
+/* AI CIRCLE */
+
+.hero-circle {
+  width: 330px;
+  height: 330px;
+
+  border: 1px solid #bfff00;
+  border-radius: 50%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow:
+    0 0 40px rgba(191, 255, 0, 0.08),
+    0 0 100px rgba(191, 255, 0, 0.04);
+}
+
+.hero-circle h2 {
+  color: #bfff00;
+  font-size: 55px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.hero-circle p {
+  color: #777;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 991px) {
+
+  .hero-section .container {
+    max-width: 750px;
+  }
+
+  .hero-section .row {
+    min-height: auto !important;
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .hero-right {
+    min-height: 400px;
+    margin-top: 20px;
+  }
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 575px) {
+
+  .hero-section .container {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .hero-section .row {
+    padding-top: 55px;
+    padding-bottom: 55px;
+  }
+
+  .hero-badge {
+    font-size: 12px;
+    margin-bottom: 18px;
+  }
+
+  .hero-title {
+    font-size: 2.6rem;
+    line-height: 1.05;
+  }
+
+  .hero-description {
+    font-size: 14px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+  }
+
+  .hero-features {
+    margin-top: 10px;
+  }
+
+  .hero-feature {
+    margin-bottom: 15px;
+  }
+
+  .hero-right {
+    min-height: 300px;
+  }
+
+  .hero-circle {
+    width: 230px;
+    height: 230px;
+  }
+
+  .hero-circle h2 {
+    font-size: 40px;
+  }
+
+  .hero-circle p {
+    font-size: 12px;
+  }
+
+}
+
+
+/* =========================
+   VERY SMALL 320px
+========================= */
+
+@media (max-width: 350px) {
+
+  .hero-section .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .hero-description {
+    font-size: 13px;
+  }
+
+  .hero-circle {
+    width: 200px;
+    height: 200px;
+  }
+
+}
