@@ -29,6 +29,7 @@ function Login() {
     };
     getadmindata();
   }, []);
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -108,73 +109,273 @@ function Login() {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+    <div
+      className="min-vh-100 d-flex justify-content-center align-items-center text-white"
+      style={{
+        backgroundColor: "#000",
+        padding: "30px 15px",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+    
+      {/* Background Glow */}
       <div
-        className="card shadow-lg p-4"
-        style={{ maxWidth: "420px", width: "100%", borderRadius: "15px" }}
+        style={{
+          position: "absolute",
+          width: "400px",
+          height: "400px",
+          background: "rgba(191,255,0,0.06)",
+          filter: "blur(100px)",
+          borderRadius: "50%",
+          top: "-150px",
+          left: "-150px",
+        }}
+      />
+
+      <div
+        style={{
+          position: "absolute",
+          width: "350px",
+          height: "350px",
+          background: "rgba(191,255,0,0.05)",
+          filter: "blur(100px)",
+          borderRadius: "50%",
+          bottom: "-150px",
+          right: "-100px",
+        }}
+      />
+
+      <div
+        className="w-100"
+        style={{
+          maxWidth: "420px",
+          position: "relative",
+          zIndex: 2,
+        }}
       >
-        <form onSubmit={handleSubmit}>
-          <h2 className="text-center mb-4 fw-bold">Login</h2>
 
-          <div className="mb-3">
-            <label className="form-label fw-semibold">Email</label>
-            <input
-              type="email"
-              name="email"
-              className="form-control"
-              value={loginData.email}
-              onChange={handleChange}
-              placeholder="Enter Your email"
-              required
-            />
-          </div>
+        {/* Logo / Brand */}
+        <div className="text-center mb-4">
+          <h3
+            className="fw-bold mb-1"
+            style={{
+              fontSize: "24px",
+              letterSpacing: "-0.5px",
+            }}
+          >
+            <span style={{ color: "#bfff00" }}>FP</span>{" "}
+            FitPlan AI
+          </h3>
 
-          <div className="mb-3">
-            <label className="form-label">Password</label>
+          <p
+            className="mb-0"
+            style={{
+              color: "#666",
+              fontSize: "11px",
+              letterSpacing: "0.5px",
+            }}
+          >
+            AI-POWERED FITNESS COMPANION
+          </p>
+        </div>
 
-            <div className="input-group">
+        {/* Login Card */}
+        <div
+          className="p-4 p-sm-5"
+          style={{
+            backgroundColor: "#090909",
+            border: "1px solid #292929",
+            borderRadius: "14px",
+            boxShadow: "0 15px 50px rgba(0,0,0,0.5)",
+          }}
+        >
+          <form onSubmit={handleSubmit}>
+
+            {/* Heading */}
+            <div className="text-center mb-4">
+              <h2
+                className="fw-bold mb-2"
+                style={{
+                  fontSize: "27px",
+                  color: "#fff",
+                }}
+              >
+                Welcome <span style={{ color: "#bfff00" }}>Back.</span>
+              </h2>
+
+              <p
+                className="mb-0"
+                style={{
+                  color: "#777",
+                  fontSize: "13px",
+                }}
+              >
+                Login to continue your fitness journey.
+              </p>
+            </div>
+
+            {/* Email */}
+            <div className="mb-3">
+              <label
+                className="form-label"
+                style={{
+                  color: "#ddd",
+                  fontSize: "13px",
+                  fontWeight: "500",
+                }}
+              >
+                Email Address
+              </label>
+
               <input
-                type={passwordsee ? "text" : "password"}
-                name="password"
-                className="form-control"
-                value={loginData.password}
+                type="email"
+                name="email"
+                className="form-control fitplan-input"
+                value={loginData.email}
                 onChange={handleChange}
-                placeholder="Enter Your Password"
+                placeholder="Enter Your Email Address"
                 required
               />
-
-              <span
-                className="input-group-text"
-                style={{ cursor: "pointer" }}
-                onClick={() => setPasswordsee(!passwordsee)}
-              >
-                {passwordsee ? <FaEyeSlash /> : <FaEye />}
-              </span>
             </div>
-          </div>
 
-          <div className="text-center mb-3">
-            <Link
-              to="/forgetpassword"
-              className="text-decoration-none small mb-4"
-            >
-              Forgot Password?
-            </Link>
-          </div>
-          <button type="submit" className="btn btn-primary w-100">
-            Login
-          </button>
+            {/* Password */}
+            <div className="mb-3">
+              <label
+                className="form-label"
+                style={{
+                  color: "#ddd",
+                  fontSize: "13px",
+                  fontWeight: "500",
+                }}
+              >
+                Password
+              </label>
 
-          <div className="text-center mt-3">
-            <p className="mb-2">
-              Don't have an account?{" "}
-              <Link to="/signup" className="text-decoration-none">
-                Signup
+              <div className="input-group">
+
+                <input
+                  type={passwordsee ? "text" : "password"}
+                  name="password"
+                  className="form-control fitplan-input"
+                  value={loginData.password}
+                  onChange={handleChange}
+                  placeholder="Enter Your Password"
+                  required
+                />
+
+                <span
+                  className="input-group-text fitplan-eye"
+                  style={{
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setPasswordsee(!passwordsee)}
+                >
+                  {passwordsee ? <FaEyeSlash /> : <FaEye />}
+                </span>
+
+              </div>
+            </div>
+
+            {/* Forgot Password */}
+            <div className="text-end mb-4">
+              <Link
+                to="/forgetpassword"
+                style={{
+                  textDecoration: "none",
+                  color: "#bfff00",
+                  fontSize: "12px",
+                }}
+              >
+                Forgot Password?
               </Link>
-            </p>
-          </div>
-        </form>
+            </div>
+
+            {/* Login Button */}
+            <button
+              type="submit"
+              className="btn w-100 fw-bold"
+              style={{
+                backgroundColor: "#bfff00",
+                color: "#000",
+                height: "45px",
+                borderRadius: "6px",
+                border: "none",
+                fontSize: "13px",
+              }}
+            >
+              Login
+            </button>
+
+            {/* Signup */}
+            <div className="text-center mt-4">
+              <p
+                className="mb-0"
+                style={{
+                  color: "#777",
+                  fontSize: "12px",
+                }}
+              >
+                Don't have an account?{" "}
+                <Link
+                  to="/signup"
+                  style={{
+                    color: "#bfff00",
+                    textDecoration: "none",
+                    fontWeight: "600",
+                  }}
+                >
+                  Create Account
+                </Link>
+              </p>
+            </div>
+
+          </form>
+        </div>
+
+        {/* Bottom text */}
+        <p
+          className="text-center mt-4 mb-0"
+          style={{
+            color: "#444",
+            fontSize: "10px",
+          }}
+        >
+          Your data is secure and protected.
+        </p>
+
       </div>
+        <style>
+        {`.fitplan-input {
+  background-color: #111 !important;
+  color: #fff !important;
+  border: 1px solid #292929 !important;
+  height: 40px;
+  font-size: 13px !important;
+}
+
+.fitplan-input::placeholder {
+  color: #555 !important;
+}
+
+.fitplan-input:focus {
+  background-color: #111 !important;
+  color: #fff !important;
+  border-color: #bfff00 !important;
+  box-shadow: 0 0 0 0.15rem rgba(191, 255, 0, 0.1) !important;
+}
+
+.fitplan-eye {
+  background-color: #111 !important;
+  color: #666 !important;
+  border: 1px solid #292929 !important;
+  border-left: none !important;
+}
+
+.fitplan-eye:hover {
+  color: #bfff00 !important;
+}`}
+      </style>
     </div>
   );
 }
