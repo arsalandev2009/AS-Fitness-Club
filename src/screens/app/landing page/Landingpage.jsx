@@ -46,7 +46,7 @@ function Landingpage() {
               </p>
 
               <div className="hero-buttons">
-                <Link to={"/signup"} className="btn hero-primary-btn">
+                <Link to={"/login"} className="btn hero-primary-btn">
                   Start Your Plan Now <FiSend />
                 </Link>
 
@@ -540,7 +540,7 @@ function Landingpage() {
 
               <div className="col-lg-4 text-lg-end mt-4 mt-lg-0">
                 <Link
-                  to="/signup"
+                  to="/login"
                   className="btn fw-bold px-4 py-3"
                   style={{
                     backgroundColor: "#bfff00",

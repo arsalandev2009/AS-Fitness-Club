@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../../../utils/supabase";
-import Logo from '../../../assets/FitPlan_AI_Individual_Assets/logo.png'
+import Logo from "../../../assets/FitPlan_AI_Individual_Assets/logo.png";
 import Swal from "sweetalert2";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Login() {
+  
+  const navigate = useNavigate();
+
+
+
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -30,7 +35,6 @@ function Login() {
     getadmindata();
   }, []);
 
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setLoginData((prev) => ({
@@ -74,7 +78,7 @@ function Login() {
     } else {
       const { data: getData, error: getError } = await supabase
         .from("Auth")
-        .select("role")
+        .select("role, age, gender, height, weight")
         .eq("id", data.user.id)
         .maybeSingle();
 
@@ -90,7 +94,16 @@ function Login() {
           timerProgressBar: true,
           showConfirmButton: false,
         }).then(() => {
-          navigate("/membercompleteprofile");
+          if (
+            getData.age &&
+            getData.gender &&
+            getData.height &&
+            getData.weight
+          ) {
+            navigate("/member-dashboard");
+          } else {
+            navigate("/membercompleteprofile");
+          }
         });
         return;
       } else if (getData.role === "coach") {
@@ -118,7 +131,6 @@ function Login() {
         overflow: "hidden",
       }}
     >
-    
       {/* Background Glow */}
       <div
         style={{
@@ -154,14 +166,10 @@ function Login() {
           zIndex: 2,
         }}
       >
-
         {/* Logo / Brand */}
         <div className="text-center mb-4">
-          <h3
-            className="py-1"
-         
-          >
-           <img src={Logo} alt="AS fitness" width={150} />
+          <h3 className="py-1">
+            <img src={Logo} alt="AS fitness" width={150} />
           </h3>
 
           <p
@@ -187,7 +195,6 @@ function Login() {
           }}
         >
           <form onSubmit={handleSubmit}>
-
             {/* Heading */}
             <div className="text-center mb-4">
               <h2
@@ -249,7 +256,6 @@ function Login() {
               </label>
 
               <div className="input-group">
-
                 <input
                   type={passwordsee ? "text" : "password"}
                   name="password"
@@ -269,7 +275,6 @@ function Login() {
                 >
                   {passwordsee ? <FaEyeSlash /> : <FaEye />}
                 </span>
-
               </div>
             </div>
 
@@ -325,7 +330,6 @@ function Login() {
                 </Link>
               </p>
             </div>
-
           </form>
         </div>
 
@@ -339,9 +343,8 @@ function Login() {
         >
           Your data is secure and protected.
         </p>
-
       </div>
-        <style>
+      <style>
         {`.fitplan-input {
   background-color: #111 !important;
   color: #fff !important;

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Logo from '../../../../assets/FitPlan_AI_Individual_Assets/logo.png'
 import "./MemberCompleteProfile.css";
-import { useDispatch } from "react-redux";
-import { saveMemberData } from "../../../../redux/features/memberSlice";
+// import { useDispatch } from "react-redux";
+// import { saveMemberData } from "../../../../redux/features/memberSlice";
 import {
   FaUser,
   FaBullseye,
@@ -25,6 +25,7 @@ import {
   FaChartLine,
 } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "../../../../utils/supabase";
 
 function MemberCompleteProfile() {
   const dispatch =useDispatch()
@@ -54,13 +55,51 @@ function MemberCompleteProfile() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    dispatch(saveMemberData(formData));
+  
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
 
-    navigate('/member-dashboard')
-  };
+  if (userError || !user) {
+    navigate("/login");
+    return;
+  }
+
+  // Existing user ki Auth table wali row update karo
+  const { data: getData, error: getError } = await supabase
+    .from("Auth")
+    .update({
+      age: formData.age,
+      gender: formData.gender,
+      height: formData.height,
+      weight: formData.weight,
+      goal: formData.goal,
+      activity: formData.activity,
+      trainingExperience: formData.trainingExperience,
+      days: formData.daysPerWeek,
+      equiqments: formData.equipment,
+      dietPreference: formData.diet,
+      allergies: formData.allergies,
+      budget: formData.budget,
+    })
+    .eq("id", user.id);
+
+  if (getError) {
+    console.log(getError);
+    alert("Error updating profile");
+    return;
+  }
+
+  // Redux mein bhi save
+  // dispatch(saveMemberData(formData));
+
+  // Dashboard
+  navigate("/member-dashboard");
+};
 
   return (
     <div className="fit-page min-vh-100 text-white">
@@ -901,7 +940,7 @@ function MemberCompleteProfile() {
                   </div>
 
 
-                  <div className="col-12 col-lg-3">
+                  {/* <div className="col-12 col-lg-3">
 
                     <label className="form-label fit-label">
                       Preferred Cuisine{" "}
@@ -943,7 +982,7 @@ function MemberCompleteProfile() {
 
                     </select>
 
-                  </div>
+                  </div> */}
 
                 </div>
 

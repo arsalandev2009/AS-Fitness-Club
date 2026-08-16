@@ -1,7 +1,9 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { ForgetPassword, Login, Signup, UpdatePassword }from '../screens/auth/auth'
-import {Adminhome, Coachhome, Landingpage, Membercompleteprofile, Memberhome} from '../screens/app/app'
+import {Adminhome, Coachhome, Landingpage,  Membercompleteprofile, Memberhome} from '../screens/app/app'
+import ProtectedRoutingMember from './ProtectedRoutingMember'
+import Protect from './Protect'
 
 
 function Routing() {
@@ -12,14 +14,15 @@ function Routing() {
 
 
         <Route path='/' element={<Landingpage/>}/>
-        <Route path='/login' element={<Login/>}/>
+        <Route path='/login' element={<ProtectedRoutingMember><Login/></ProtectedRoutingMember>}/>
         <Route path='/signup' element={<Signup/>}/>
         <Route path='/updatepassword' element={<UpdatePassword/>}/>
         <Route path='/forgetpassword' element={<ForgetPassword/>}/>
         <Route path='/admin-dashboard' element={<Adminhome/>}/>
         <Route path='/coach-dashboard' element={<Coachhome/>}/>
+        {/* <Route path='/member-check' element={<MemberCheck/>}/> */}
         <Route path='/membercompleteprofile' element={<Membercompleteprofile/>}/>
-        <Route path='/member-dashboard' element={<Memberhome/>}/>
+        <Route path='/member-dashboard' element={<Protect><Memberhome/></Protect>}/>
     </Routes>
     </BrowserRouter>
     </>
