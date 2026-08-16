@@ -1,129 +1,250 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../../assets/FitPlan_AI_Individual_Assets/logo.png";
 
 function Header() {
-  return (
-    <header className="bg-black border-bottom py-1 border-dark position-fixed" style={{right:'0',left:'0',zIndex:'999'}}>
-      
-      <nav className="navbar navbar-dark px-3 px-lg-5 py-2">
+  const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleMenu = () => {
+    setMenuOpen((prev) => !prev);
+
+    // Agar menu open ho raha hai to 2 sec baad close
+    if (!menuOpen) {
+      setTimeout(() => {
+        setMenuOpen(false);
+      }, 5000);
+    }
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
+  return (
+    <header
+      style={{
+        backgroundColor: "#000",
+        borderBottom: "1px solid #333",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 999,
+      }}
+    >
+      <nav
+        style={{
+          height: "70px",
+          padding: "0 5%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          position: "relative",
+        }}
+      >
         {/* Logo */}
-        <Link to="/" className="navbar-brand">
+        <Link to="/" onClick={closeMenu}>
           <img
             src={Logo}
             alt="FitPlan AI"
-            style={{ width: "150px" }}
+            style={{
+              width: "150px",
+              display: "block",
+            }}
           />
         </Link>
 
-        {/* Hamburger */}
-        <button
-          className="navbar-toggler d-lg-none"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#fitPlanNavbar"
-          aria-controls="fitPlanNavbar"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
         {/* Desktop Navigation */}
-        <div className="d-none d-lg-flex align-items-center gap-4">
-
+        <div
+          className="desktop-nav"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "30px",
+          }}
+        >
           <a
             href="#home"
-            className="text-white text-decoration-none"
+            style={{
+              color: "#fff",
+              textDecoration: "none",
+            }}
           >
             Home
           </a>
 
           <a
             href="#features"
-            className="text-white text-decoration-none"
+            style={{
+              color: "#fff",
+              textDecoration: "none",
+            }}
           >
-           Learn More
+            Learn More
           </a>
-
-        
 
           <Link
             to="/signup"
-            className="btn fw-bold px-4"
             style={{
               backgroundColor: "#bfff00",
               color: "#000",
+              textDecoration: "none",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              borderRadius: "6px",
             }}
           >
             Get Started Free
           </Link>
-
         </div>
 
-        {/* Mobile Menu */}
-        <div
-          className="collapse position-absolute d-lg-none"
-          id="fitPlanNavbar"
+        {/* Hamburger Button */}
+        <button
+          className="hamburger"
+          onClick={handleMenu}
           style={{
-            top: "100%",
-            right: "15px",
-            width: "220px",
-            zIndex: 1000,
+            display: "none",
+            background: "transparent",
+            border: "none",
+            cursor: "pointer",
+            padding: "8px",
           }}
         >
+          <span
+            style={{
+              display: "block",
+              width: "28px",
+              height: "3px",
+              backgroundColor: "#fff",
+              margin: "5px 0",
+              borderRadius: "5px",
+            }}
+          ></span>
+
+          <span
+            style={{
+              display: "block",
+              width: "28px",
+              height: "3px",
+              backgroundColor: "#fff",
+              margin: "5px 0",
+              borderRadius: "5px",
+            }}
+          ></span>
+
+          <span
+            style={{
+              display: "block",
+              width: "28px",
+              height: "3px",
+              backgroundColor: "#fff",
+              margin: "5px 0",
+              borderRadius: "5px",
+            }}
+          ></span>
+        </button>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
           <div
-            className="bg-black border border-secondary rounded-3 p-3 shadow-lg"
+            className="mobile-menu"
+            style={{
+              position: "absolute",
+              top: "65px",
+              right: "15px",
+              width: "220px",
+              backgroundColor: "#000",
+              border: "1px solid #555",
+              borderRadius: "10px",
+              padding: "15px",
+              boxShadow: "0 5px 20px rgba(0,0,0,0.5)",
+            }}
           >
-
-            <div className="d-flex flex-column gap-2">
-
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
+              }}
+            >
               <a
                 href="#home"
-                className="text-white text-decoration-none p-2 rounded"
+                onClick={closeMenu}
+                style={{
+                  color: "#fff",
+                  textDecoration: "none",
+                  padding: "10px",
+                  borderRadius: "6px",
+                }}
               >
                 Home
               </a>
 
               <a
                 href="#how-it-works"
-                className="text-white text-decoration-none p-2 rounded"
+                onClick={closeMenu}
+                style={{
+                  color: "#fff",
+                  textDecoration: "none",
+                  padding: "10px",
+                  borderRadius: "6px",
+                }}
               >
                 How It Works
               </a>
 
-              <a
-                href="#contact"
-                className="text-white text-decoration-none p-2 rounded"
-              >
-                Contact Us
-              </a>
-
-              <a
-                href="#about"
-                className="text-white text-decoration-none p-2 rounded"
-              >
-                About Us
-              </a>
-
               <Link
                 to="/signup"
-                className="btn fw-bold mt-2"
+                onClick={closeMenu}
                 style={{
                   backgroundColor: "#bfff00",
                   color: "#000",
+                  textDecoration: "none",
+                  fontWeight: "bold",
+                  padding: "10px",
+                  borderRadius: "6px",
+                  textAlign: "center",
+                  marginTop: "5px",
                 }}
               >
                 Get Started Free
               </Link>
-
             </div>
-
           </div>
-        </div>
-
+        )}
       </nav>
+
+      {/* Responsive CSS */}
+      <style>
+        {`
+          @media (max-width: 991px) {
+            .desktop-nav {
+              display: none !important;
+            }
+
+            .hamburger {
+              display: block !important;
+            }
+          }
+
+          @media (min-width: 992px) {
+            .mobile-menu {
+              display: none !important;
+            }
+          }
+
+          @media (max-width: 480px) {
+            nav {
+              padding-left: 15px !important;
+              padding-right: 15px !important;
+            }
+
+            nav img {
+              width: 125px !important;
+            }
+          }
+        `}
+      </style>
     </header>
   );
 }

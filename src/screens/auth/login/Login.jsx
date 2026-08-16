@@ -90,7 +90,7 @@ function Login() {
           timerProgressBar: true,
           showConfirmButton: false,
         }).then(() => {
-          navigate("/member-dashboard");
+          navigate("/membercompleteprofile");
         });
         return;
       } else if (getData.role === "coach") {

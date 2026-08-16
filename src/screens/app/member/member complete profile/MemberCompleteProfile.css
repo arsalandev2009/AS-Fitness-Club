@@ -1,0 +1,600 @@
+/* =========================
+   Main
+========================= */
+
+.fit-page {
+  background-color: #050606;
+}
+
+.fit-main {
+  padding: 15px 32px 30px;
+}
+
+
+/* =========================
+   Intro
+========================= */
+
+.fit-intro {
+  padding: 20px 15px;
+}
+
+.fit-tagline {
+  color: #b7f500;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.fit-header-text {
+  color: #8b9199;
+  font-size: 14px;
+}
+
+
+/* =========================
+   Header
+========================= */
+
+.fit-header {
+  padding: 18px 32px;
+  border-color: #303500 !important;
+}
+
+.fit-logo {
+  font-size: 48px;
+  line-height: 1;
+}
+
+.fit-logo span {
+  color: #b7f500;
+}
+
+.fit-security {
+  padding: 12px 18px;
+  max-width: 380px;
+  border: 1px solid #b7f500;
+}
+
+.fit-security-icon {
+  color: #b7f500;
+  font-size: 27px;
+}
+
+.fit-security-title {
+  color: #b7f500;
+}
+
+.fit-security-text {
+  color: #6c757d;
+  font-size: 13px;
+}
+
+
+/* =========================
+   Sections
+========================= */
+
+.fit-section {
+  padding: 24px;
+  background-color: #0f1011;
+  border: 1px solid #303236;
+  min-width: 0;
+}
+
+.fit-section-icon {
+  width: 45px;
+  height: 45px;
+  min-width: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background-color: #172000;
+  color: #b7f500;
+
+  font-size: 20px;
+}
+
+.fit-section-title {
+  color: #b7f500;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.fit-section-subtitle {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+
+/* =========================
+   Labels
+========================= */
+
+.fit-label {
+  font-weight: 600;
+  color: #fff;
+}
+
+
+/* =========================
+   Inputs
+========================= */
+
+.fit-input,
+.form-control,
+.form-select,
+.input-group-text {
+  background-color: #111214 !important;
+  color: #fff !important;
+  border-color: #343434 !important;
+}
+
+.fit-input::placeholder,
+.form-control::placeholder {
+  color: #6c757d !important;
+}
+
+.form-select option {
+  background-color: #111214;
+  color: #fff;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #b7f500 !important;
+  box-shadow: 0 0 0 0.15rem rgba(183, 245, 0, 0.15) !important;
+}
+
+
+/* =========================
+   Radio Options
+========================= */
+
+.fit-option {
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 12px;
+
+  color: #fff;
+
+  background-color: #111214;
+  border: 1px solid #343434;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  transition: 0.2s ease;
+}
+
+.fit-option:hover {
+  border-color: #b7f500;
+}
+
+.fit-option.selected {
+  border-color: #b7f500;
+  background-color: #171d0b;
+}
+
+.fit-option input {
+  margin: 0;
+  flex-shrink: 0;
+  accent-color: #b7f500;
+}
+
+.fit-option svg {
+  color: #b7f500;
+  flex-shrink: 0;
+}
+
+.fit-option small {
+  color: #6c757d;
+}
+
+
+/* =========================
+   Lightbulb
+========================= */
+
+.fit-lightbulb {
+  color: #b7f500;
+  margin-top: 3px;
+}
+
+
+/* =========================
+   Footer
+========================= */
+
+.fit-footer {
+  background-color: #0f1011;
+  border: 1px solid #303236;
+}
+
+.fit-footer-icon {
+  color: #b7f500;
+  font-size: 27px;
+}
+
+.fit-create-btn {
+  min-width: 260px;
+
+  background-color: #b7f500 !important;
+  color: #050505 !important;
+
+  border: none !important;
+
+  white-space: nowrap;
+
+  transition: 0.2s ease;
+}
+
+.fit-create-btn:hover {
+  background-color: #c8ff32 !important;
+  color: #050505 !important;
+}
+
+
+/* =========================
+   1440px
+========================= */
+
+@media (max-width: 1440px) {
+
+  .fit-main {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+}
+
+
+/* =========================
+   1280px
+========================= */
+
+@media (max-width: 1280px) {
+
+  .fit-main {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .fit-section {
+    padding: 22px;
+  }
+
+  .fit-option {
+    padding: 11px;
+  }
+
+}
+
+
+/* =========================
+   1024px
+========================= */
+
+@media (max-width: 1024px) {
+
+  .fit-main {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .fit-header {
+    padding: 18px 20px;
+  }
+
+  .fit-section {
+    padding: 20px;
+  }
+
+  .fit-security {
+    max-width: 320px;
+  }
+
+}
+
+
+/* =========================
+   800px
+========================= */
+
+@media (max-width: 800px) {
+
+  .fit-section {
+    padding: 18px;
+  }
+
+  .fit-security {
+    max-width: 100%;
+  }
+
+  .fit-option {
+    padding: 11px;
+    font-size: 13px;
+  }
+
+}
+
+
+/* =========================
+   768px
+========================= */
+
+@media (max-width: 768px) {
+
+  .fit-main {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .fit-header {
+    padding: 18px 12px;
+  }
+
+  .fit-logo {
+    font-size: 36px;
+  }
+
+  .fit-tagline {
+    font-size: 13px;
+  }
+
+  .fit-security {
+    width: 100%;
+  }
+
+  .fit-section {
+    padding: 18px;
+  }
+
+  .fit-option {
+    padding: 11px;
+  }
+
+  .fit-create-btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+}
+
+
+/* =========================
+   600px
+========================= */
+
+@media (max-width: 600px) {
+
+  .fit-main {
+    padding: 15px 10px;
+  }
+
+  .fit-header {
+    padding: 15px 10px;
+  }
+
+  .fit-logo {
+    font-size: 32px;
+  }
+
+  .fit-intro {
+    padding: 15px 10px;
+  }
+
+  .fit-tagline {
+    font-size: 16px;
+  }
+
+  .fit-header-text {
+    font-size: 12px;
+  }
+
+  .fit-security {
+    padding: 11px;
+  }
+
+  .fit-security-title {
+    font-size: 13px;
+  }
+
+  .fit-security-text {
+    font-size: 11px;
+  }
+
+  .fit-section {
+    padding: 15px;
+  }
+
+  .fit-section-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    font-size: 17px;
+  }
+
+  .fit-section-title {
+    font-size: 16px;
+  }
+
+  .fit-section-subtitle {
+    font-size: 11px;
+  }
+
+  .fit-option {
+    padding: 10px;
+    gap: 7px;
+  }
+
+  .fit-label {
+    font-size: 13px;
+  }
+
+  .fit-create-btn {
+    padding: 12px !important;
+    font-size: 14px;
+  }
+
+}
+
+
+/* =========================
+   480px
+========================= */
+
+@media (max-width: 480px) {
+
+  .fit-main {
+    padding: 12px 8px;
+  }
+
+  .fit-header {
+    padding: 13px 8px;
+  }
+
+  .fit-logo {
+    font-size: 30px;
+  }
+
+  .fit-intro {
+    padding: 13px 8px;
+  }
+
+  .fit-tagline {
+    font-size: 17px;
+  }
+
+  .fit-header-text {
+    font-size: 13px;
+  }
+
+  .fit-section {
+    padding: 13px;
+  }
+
+  .fit-section-icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    font-size: 16px;
+  }
+
+  .fit-section-title {
+    font-size: 15px;
+  }
+
+  .fit-section-subtitle {
+    font-size: 10px;
+  }
+
+  .fit-option {
+    padding: 9px;
+    gap: 6px;
+    font-size: 12px;
+  }
+
+  .fit-label {
+    font-size: 12px;
+  }
+
+}
+
+
+/* =========================
+   320px
+========================= */
+
+@media (max-width: 320px) {
+
+  .fit-main {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .fit-header {
+    padding: 10px 6px;
+  }
+
+  .fit-logo {
+    font-size: 26px;
+  }
+
+  .fit-intro {
+    padding: 10px 6px;
+  }
+
+  .fit-tagline {
+    font-size: 14px;
+  }
+
+  .fit-header-text {
+    font-size: 13px;
+  }
+
+  .fit-security {
+    padding: 8px;
+    gap: 6px !important;
+  }
+
+  .fit-security-icon {
+    font-size: 18px;
+  }
+
+  .fit-security-title {
+    font-size: 10px;
+  }
+
+  .fit-security-text {
+    font-size: 8px;
+  }
+
+  .fit-section {
+    padding: 10px;
+  }
+
+  .fit-section-icon {
+    width: 33px;
+    height: 33px;
+    min-width: 33px;
+    font-size: 14px;
+  }
+
+  .fit-section-title {
+    font-size: 13px;
+  }
+
+  .fit-section-subtitle {
+    font-size: 9px;
+  }
+
+  .fit-option {
+    padding: 7px;
+    gap: 5px;
+    font-size: 10px;
+  }
+
+  .fit-option svg {
+    font-size: 12px;
+  }
+
+  .fit-label {
+    font-size: 11px;
+  }
+
+  .fit-create-btn {
+    font-size: 11px;
+    padding: 9px !important;
+  }
+
+}

@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "../../../../component/landing page/header/Header";
-import Footer from "../../../../component/landing page/footer/Footer";
 import { Link } from "react-router-dom";
 import { FiSend } from "react-icons/fi";
 import {
@@ -12,9 +10,10 @@ import {
   FaChartLine,
   FaSyncAlt
 } from "react-icons/fa";
-import "./Home.css";
+import "./Landingpage.css";
+import { Footer, Header } from "../../../component/component";
 
-function Home() {
+function Landingpage() {
   return (
     <div
       className="bg-black text-white overflow-hidden"
@@ -23,7 +22,7 @@ function Home() {
         minHeight: "100vh",
       }}
     >
-      <Header />
+      <Header/>
 
       {/* ================= HERO ================= */}
       <section id="home" className="hero-section">
@@ -119,7 +118,7 @@ function Home() {
         </div>
       </section>
 
-<section id="features">
+<section id="how-it-works">
   
       {/* ================= STATS ================= */}
    <section className="container pb-5">
@@ -568,4 +567,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Landingpage;
