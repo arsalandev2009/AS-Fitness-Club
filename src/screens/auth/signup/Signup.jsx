@@ -66,7 +66,8 @@ function Signup() {
       icon: "success",
       confirmButtonText: "OK!",
       confirmButtonColor: "#0d6efd",
-    }).then(() => {
+    }).then(async () => {
+       await supabase.auth.signOut();
       navigate("/login");
     });
   };

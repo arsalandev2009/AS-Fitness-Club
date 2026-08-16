@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "../utils/supabase";
 import { Navigate } from "react-router-dom";
 
-function Protect({ children }) {
+function ProtectMemberHome({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [gettingData, setGettingData] = useState();
@@ -44,4 +44,4 @@ function Protect({ children }) {
   return children;
 }
 
-export default Protect;
+export default ProtectMemberHome;

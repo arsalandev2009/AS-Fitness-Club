@@ -26,10 +26,15 @@ import {
 } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../../../../utils/supabase";
+import { groq } from "../../../../utils/groqAPI";
+
 
 function MemberCompleteProfile() {
-  const dispatch =useDispatch()
+  // const dispatch =useDispatch()
   const navigate=useNavigate()
+
+
+
   const [formData, setFormData] = useState({
     age: "",
     gender: "",
@@ -92,14 +97,33 @@ function MemberCompleteProfile() {
     console.log(getError);
     alert("Error updating profile");
     return;
+
   }
+  
+  const handleGroq = await groq.chat.completions.create({
+    messages: [
+      
+      {
+        role: "user",
+        content: `Create a plan of my diet  ,my age  is ${formData.age} and my weight is ${formData.weight}`,
+      },
+    ],
+      model: "llama-3.3-70b-versatile",
+    });
+    
+    
+    const groqResult = handleGroq.choices[0].message.content
 
-  // Redux mein bhi save
-  // dispatch(saveMemberData(formData));
-
-  // Dashboard
-  navigate("/member-dashboard");
-};
+    
+    const {data:putData,error:putError} = await supabase.from('Auth').update({promptResult:groqResult}).eq("id",user.id).single()
+    
+    navigate("/member-dashboard");
+      
+      
+      // Redux mein bhi save
+      // dispatch(saveMemberData(formData));
+      
+    };
 
   return (
     <div className="fit-page min-vh-100 text-white">
