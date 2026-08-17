@@ -100,13 +100,174 @@ function MemberCompleteProfile() {
 
   }
   
+const prompt = `
+You are FitPlan AI, a fitness and nutrition planning assistant.
+
+Create a SHORT, practical 7-day diet and workout plan using ONLY this user data:
+
+Age: ${formData.age}
+Gender: ${formData.gender}
+Height: ${formData.height}
+Weight: ${formData.weight}
+Goal: ${formData.goal}
+Activity: ${formData.activity}
+Experience: ${formData.trainingExperience}
+Training Days: ${formData.daysPerWeek}
+Equipment: ${formData.equipment}
+Diet: ${formData.diet}
+Allergies: ${formData.allergies}
+Cuisine: ${formData.cuisine}
+Budget: ${formData.budget}
+
+Calculate estimated BMR, TDEE, calories and macros.
+
+WORKOUT:
+- Choose split based on training days.
+- Maximum 5 exercises per workout.
+- Include sets, reps and rest.
+- Use ONLY available equipment.
+- Keep exercise notes very short.
+
+MEALS:
+- Create 7 days.
+- Each day: breakfast, snack, lunch, snack, dinner.
+- Keep meals simple, affordable and realistic.
+- Respect diet, allergies, cuisine and budget.
+- Include calories and macros for each meal.
+
+GROCERY:
+- Give only the main weekly ingredients.
+- Keep total estimated cost close to budget.
+
+PROGRESS:
+- Give short guidance for weight, workouts and nutrition.
+
+IMPORTANT:
+- Return ONLY valid JSON.
+- No Markdown.
+- No explanations outside JSON.
+- Keep all text SHORT.
+- Do not repeat user information unnecessarily.
+- Do not recommend extreme dieting or excessive exercise.
+
+RETURN EXACTLY:
+
+{
+  "profileSummary": {
+    "goal": "",
+    "strategy": "",
+    "experienceLevel": "",
+    "trainingDays": 0,
+    "equipment": ""
+  },
+
+  "nutritionTargets": {
+    "bmr": 0,
+    "tdee": 0,
+    "targetCalories": 0,
+    "proteinGrams": 0,
+    "carbsGrams": 0,
+    "fatGrams": 0
+  },
+
+  "workoutPlan": [
+    {
+      "day": "",
+      "split": "",
+      "focus": "",
+      "exercises": [
+        {
+          "name": "",
+          "sets": 0,
+          "reps": "",
+          "restSeconds": 0,
+          "notes": ""
+        }
+      ]
+    }
+  ],
+
+  "mealPlan": [
+    {
+      "day": "",
+      "meals": {
+        "breakfast": {
+          "mealName": "",
+          "foods": [],
+          "estimatedCalories": 0,
+          "protein": 0,
+          "carbs": 0,
+          "fat": 0
+        },
+        "morningSnack": {
+          "mealName": "",
+          "foods": [],
+          "estimatedCalories": 0,
+          "protein": 0,
+          "carbs": 0,
+          "fat": 0
+        },
+        "lunch": {
+          "mealName": "",
+          "foods": [],
+          "estimatedCalories": 0,
+          "protein": 0,
+          "carbs": 0,
+          "fat": 0
+        },
+        "eveningSnack": {
+          "mealName": "",
+          "foods": [],
+          "estimatedCalories": 0,
+          "protein": 0,
+          "carbs": 0,
+          "fat": 0
+        },
+        "dinner": {
+          "mealName": "",
+          "foods": [],
+          "estimatedCalories": 0,
+          "protein": 0,
+          "carbs": 0,
+          "fat": 0
+        }
+      },
+      "dailyTotals": {
+        "calories": 0,
+        "protein": 0,
+        "carbs": 0,
+        "fat": 0
+      }
+    }
+  ],
+
+  "groceryList": [
+    {
+      "item": "",
+      "quantity": 0,
+      "unit": "",
+      "estimatedCost": 0
+    }
+  ],
+
+  "progressTracking": {
+    "weeklyWeightTracking": "",
+    "workoutAdherence": "",
+    "nutritionAdherence": "",
+    "adjustmentGuidance": ""
+  },
+
+  "safetyNote": ""
+}
+`;
+
   const handleGroq = await groq.chat.completions.create({
 model: "openai/gpt-oss-120b",
     messages: [
       
       {
         role: "user",
-        content: `Create a plan of my diet  ,my age  is ${formData.age} and my weight is ${formData.weight}`,
+        content: prompt,
       },
     ],
     });
@@ -118,45 +279,50 @@ model: "openai/gpt-oss-120b",
     const {data:putData,error:putError} = await supabase.from('Auth').update({promptResult:groqResult}).eq("id",user.id).single()
     
     navigate("/member-dashboard");
+    window.location.reload()
       
       
       // Redux mein bhi save
       // dispatch(saveMemberData(formData));
       
     };
+const handleLogout=async(e)=>{
+e.preventDefault()
 
+const {data} = await supabase.auth.signOut()
+navigate('/')
+}
   return (
     <div className="fit-page min-vh-100 text-white">
 
       {/* HEADER */}
 
-      <header className="fit-header border-bottom">
-        <div className="container-fluid p-0">
-          <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+     <header className="fit-header border-bottom">
+  <div className="container-fluid">
+    <div className="d-flex justify-content-between align-items-center">
 
-            <div>
-              <img src={Logo} alt="" width={220} style={{margin:'10px'}} />
+      <img
+        src={Logo}
+        alt=""
+        width={220}
+        className="my-2"
+      />
 
-             
-            </div>
+      <button
+        onClick={handleLogout}
+        className="btn px-4 py-2 fw-semibold rounded-3"
+        style={{
+          backgroundColor: "#bfff00",
+          color: "#000",
+          border: "none",
+        }}
+      >
+        Logout
+      </button>
 
-            {/* <div className="fit-security d-flex align-items-center gap-3 rounded-3">
-              <FaShieldHalved className="fit-security-icon" />
-
-              <div>
-                <strong className="fit-security-title">
-                  Your data is private & secure
-                </strong>
-
-                <div className="fit-security-text">
-                  We only use it to create your personalized plan.
-                </div>
-              </div>
-            </div> */}
-
-          </div>
-        </div>
-      </header>
+    </div>
+  </div>
+</header>
 
 
       {/* MAIN */}

@@ -13,8 +13,10 @@ import {
   Membercompleteprofile,
   Memberhome,
 } from "../screens/app/app";
-import ProtectedRoutingMember from "./ProtectedRoutingMember";
-import ProtectMemberHome from "./ProtectMemberHome";
+// import ProtectedRoutingMember from "./ProtectedRoutingMember";
+// import ProtectMemberHome from "./ProtectMemberHome";
+import ProtectedMemberPage from "./ProtectedMemberPage";
+
 
 
 
@@ -24,20 +26,15 @@ function Routing() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Landingpage />} />
-          <Route path="/login" element={ <ProtectedRoutingMember> <Login /> </ProtectedRoutingMember> } />
+          <Route path="/login" element={ <ProtectedMemberPage> <Login /> </ProtectedMemberPage>  } />
           <Route path="/signup" element={<Signup />} />
           <Route path="/updatepassword" element={<UpdatePassword />} />
           <Route path="/forgetpassword" element={<ForgetPassword />} />
           <Route path="/admin-dashboard" element={<Adminhome />} />
           <Route path="/coach-dashboard" element={<Coachhome />} />
-          {/* <Route path='/member-check' element={<MemberCheck/>}/> */}
-          <Route path="/membercompleteprofile" element={ 
-            
 
-              <Membercompleteprofile />
-           
-         }/>
-          <Route path="/member-dashboard" element={ <ProtectMemberHome> <Memberhome /> </ProtectMemberHome> } />
+          <Route path="/membercompleteprofile" element={ <ProtectedMemberPage><Membercompleteprofile /> </ProtectedMemberPage> }/>
+          <Route path="/member-dashboard" element={ <ProtectedMemberPage> <Memberhome /> </ProtectedMemberPage> } />
         </Routes>
       </BrowserRouter>
     </>

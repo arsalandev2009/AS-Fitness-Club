@@ -86,25 +86,19 @@ function Login() {
         alert(getError.message);
         return;
       } else if (getData.role === "member") {
-        Swal.fire({
-          icon: "success",
-          title: "Login Successfully!",
-          text: "Redirecting to dashboard...",
-          timer: 2500,
-          timerProgressBar: true,
-          showConfirmButton: false,
-        }).then(() => {
-          if (
-            getData.age &&
-            getData.gender &&
-            getData.height &&
-            getData.weight
-          ) {
-            navigate("/member-dashboard");
-          } else {
+        // Swal.fire({
+        //   icon: "success",
+        //   title: "Login Successfully!",
+        //   text: "Redirecting to dashboard...",
+        //   timer: 2500,
+        //   timerProgressBar: true,
+        //   showConfirmButton: false,
+        // }).then(() => {
+        
+        // });
             navigate("/membercompleteprofile");
-          }
-        });
+              window.location.reload()
+         
         return;
       } else if (getData.role === "coach") {
         Swal.fire({
@@ -119,6 +113,7 @@ function Login() {
         });
       }
     }
+  
   };
 
   return (
