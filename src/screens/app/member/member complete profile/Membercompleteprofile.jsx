@@ -101,6 +101,7 @@ function MemberCompleteProfile() {
   }
   
   const handleGroq = await groq.chat.completions.create({
+model: "openai/gpt-oss-120b",
     messages: [
       
       {
@@ -108,7 +109,6 @@ function MemberCompleteProfile() {
         content: `Create a plan of my diet  ,my age  is ${formData.age} and my weight is ${formData.weight}`,
       },
     ],
-      model: "llama-3.3-70b-versatile",
     });
     
     
