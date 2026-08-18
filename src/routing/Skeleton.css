@@ -1,0 +1,20 @@
+.skeleton-dark {
+    background: linear-gradient(
+        90deg,
+        #1a211b 25%,
+        #29352b 50%,
+        #1a211b 75%
+    );
+    background-size: 200% 100%;
+    animation: fitplanSkeleton 1.5s ease-in-out infinite;
+}
+
+@keyframes fitplanSkeleton {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

@@ -31,6 +31,7 @@ import { groq } from "../../../../utils/groqAPI";
 
 function MemberCompleteProfile() {
   // const dispatch =useDispatch()
+  
   const navigate=useNavigate()
 
 
@@ -60,9 +61,11 @@ function MemberCompleteProfile() {
     });
   };
 
+const [generating, setGenerating] = useState(false);
+
   const handleSubmit = async (e) => {
   e.preventDefault();
-
+ setGenerating(true);
   
   const {
     data: { user },
@@ -70,6 +73,7 @@ function MemberCompleteProfile() {
   } = await supabase.auth.getUser();
 
   if (userError || !user) {
+    setGenerating(false)
     navigate("/login");
     return;
   }
@@ -95,16 +99,18 @@ function MemberCompleteProfile() {
 
   if (getError) {
     console.log(getError);
-    alert("Error updating profile");
+    alert("Error Getting User");
+    setGenerating(false)
     return;
 
   }
   
 const prompt = `
-You are FitPlan AI, a fitness and nutrition planning assistant.
+You are FitPlan AI.
 
-Create a SHORT, practical 7-day diet and workout plan using ONLY this user data:
+Create a very concise personalized fitness and nutrition plan using ONLY the provided user data.
 
+User Data:
 Age: ${formData.age}
 Gender: ${formData.gender}
 Height: ${formData.height}
@@ -119,146 +125,87 @@ Allergies: ${formData.allergies}
 Cuisine: ${formData.cuisine}
 Budget: ${formData.budget}
 
-Calculate estimated BMR, TDEE, calories and macros.
-
-WORKOUT:
-- Choose split based on training days.
-- Maximum 5 exercises per workout.
-- Include sets, reps and rest.
-- Use ONLY available equipment.
-- Keep exercise notes very short.
-
-MEALS:
-- Create 7 days.
-- Each day: breakfast, snack, lunch, snack, dinner.
-- Keep meals simple, affordable and realistic.
-- Respect diet, allergies, cuisine and budget.
-- Include calories and macros for each meal.
-
-GROCERY:
-- Give only the main weekly ingredients.
-- Keep total estimated cost close to budget.
-
-PROGRESS:
-- Give short guidance for weight, workouts and nutrition.
+Return ONLY one valid JSON object.
 
 IMPORTANT:
-- Return ONLY valid JSON.
-- No Markdown.
-- No explanations outside JSON.
-- Keep all text SHORT.
-- Do not repeat user information unnecessarily.
-- Do not recommend extreme dieting or excessive exercise.
+- The COMPLETE JSON response MUST be UNDER 1000 CHARACTERS.
+- Keep every value extremely short.
+- Do not add explanations.
+- Do not use Markdown.
+- Do not add fields.
+- Do not omit required fields.
+- Use short names and concise values.
+- Use numbers instead of sentences wherever possible.
+- Foods should contain only short food names.
+- Exercise notes must be very short.
+- Keep grocery items minimal.
+- safetyNote must be very short.
+- The response must start with { and end with }.
+- Use double quotes for all JSON keys and strings.
+- No trailing commas.
 
-RETURN EXACTLY:
+Use EXACTLY this structure:
 
 {
-  "profileSummary": {
-    "goal": "",
-    "strategy": "",
-    "experienceLevel": "",
-    "trainingDays": 0,
-    "equipment": ""
-  },
-
-  "nutritionTargets": {
-    "bmr": 0,
-    "tdee": 0,
-    "targetCalories": 0,
-    "proteinGrams": 0,
-    "carbsGrams": 0,
-    "fatGrams": 0
-  },
-
-  "workoutPlan": [
-    {
-      "day": "",
-      "split": "",
-      "focus": "",
-      "exercises": [
-        {
-          "name": "",
-          "sets": 0,
-          "reps": "",
-          "restSeconds": 0,
-          "notes": ""
-        }
-      ]
-    }
-  ],
-
-  "mealPlan": [
-    {
-      "day": "",
-      "meals": {
-        "breakfast": {
-          "mealName": "",
-          "foods": [],
-          "estimatedCalories": 0,
-          "protein": 0,
-          "carbs": 0,
-          "fat": 0
-        },
-        "morningSnack": {
-          "mealName": "",
-          "foods": [],
-          "estimatedCalories": 0,
-          "protein": 0,
-          "carbs": 0,
-          "fat": 0
-        },
-        "lunch": {
-          "mealName": "",
-          "foods": [],
-          "estimatedCalories": 0,
-          "protein": 0,
-          "carbs": 0,
-          "fat": 0
-        },
-        "eveningSnack": {
-          "mealName": "",
-          "foods": [],
-          "estimatedCalories": 0,
-          "protein": 0,
-          "carbs": 0,
-          "fat": 0
-        },
-        "dinner": {
-          "mealName": "",
-          "foods": [],
-          "estimatedCalories": 0,
-          "protein": 0,
-          "carbs": 0,
-          "fat": 0
-        }
-      },
-      "dailyTotals": {
-        "calories": 0,
-        "protein": 0,
-        "carbs": 0,
-        "fat": 0
-      }
-    }
-  ],
-
-  "groceryList": [
-    {
-      "item": "",
-      "quantity": 0,
-      "unit": "",
-      "estimatedCost": 0
-    }
-  ],
-
-  "progressTracking": {
-    "weeklyWeightTracking": "",
-    "workoutAdherence": "",
-    "nutritionAdherence": "",
-    "adjustmentGuidance": ""
-  },
-
-  "safetyNote": ""
+"t":{"b":0,"c":0,"k":0,"p":0,"ca":0,"f":0},
+"w":[{"d":"","s":"","e":[{"n":"","x":0,"r":"","z":0}]}],
+"m":[
+{"d":"1","b":"","s":"","l":"","e":"","n":""},
+{"d":"2","b":"","s":"","l":"","e":"","n":""},
+{"d":"3","b":"","s":"","l":"","e":"","n":""},
+{"d":"4","b":"","s":"","l":"","e":"","n":""},
+{"d":"5","b":"","s":"","l":"","e":"","n":""},
+{"d":"6","b":"","s":"","l":"","e":"","n":""},
+{"d":"7","b":"","s":"","l":"","e":"","n":""}
+],
+"g":[{"i":"","q":0,"u":""}],
+"p":{"w":"","a":"","n":"","g":""},
+"safe":""
 }
+
+KEYS:
+t = nutrition targets
+b = BMR
+c = TDEE
+k = target calories
+p = protein
+ca = carbs
+f = fat
+w = workout
+d = day
+s = split
+e = exercises
+n = name
+x = sets
+r = reps
+z = rest seconds
+m = meal plan
+b = breakfast
+s = morning snack
+l = lunch
+e = evening snack
+n = dinner
+g = grocery
+i = item
+q = quantity
+u = unit
+p = progress
+w = weight tracking
+a = workout adherence
+n = nutrition adherence
+g = guidance
+safe = safety note
+
+For meals, use ONLY the meal name as a short string.
+Example: "Oats+Eggs"
+
+Do NOT include calories/macros inside individual meals.
+Only return the nutrition targets in "t".
+
+Do NOT add any additional fields.
+
+The final JSON MUST be less than 1000 characters.
+
 `;
 
   const handleGroq = await groq.chat.completions.create({
@@ -270,6 +217,9 @@ model: "openai/gpt-oss-120b",
         content: prompt,
       },
     ],
+    response_format:{
+      type:'json_object'
+    }
     });
     
     
@@ -277,7 +227,14 @@ model: "openai/gpt-oss-120b",
 
     
     const {data:putData,error:putError} = await supabase.from('Auth').update({promptResult:groqResult}).eq("id",user.id).single()
-    
+    if(putError){
+          console.log(putError.message);
+    alert("Error saving plan");
+    setGenerating(false);
+    return;
+    }
+
+    setGenerating(false)
     navigate("/member-dashboard");
     window.location.reload()
       
@@ -1249,14 +1206,46 @@ navigate('/')
           {/* FOOTER */}
 
           <div className="fit-footer rounded-3 p-3 mt-3 text-center">
+  {generating ? (
+  <div className="text-center mt-3">
+
+    <div
+      className="spinner-border"
+      style={{ color: "#bfff00" }}
+      role="status"
+    >
+      <span className="visually-hidden">
+        Loading...
+      </span>
+    </div>
+
+    <h5 className="fw-bold mt-3 mb-1">
+      Generating Your{" "}
+      <span style={{ color: "#bfff00" }}>
+        Fit Plan
+      </span>
+      ...
+    </h5>
+
+    <p className="text-secondary mb-0">
+      AI is creating your personalized plan.
+    </p>
+
+  </div>
+) : (
   <button
     type="submit"
-    className="fit-create-btn btn fw-bold py-3"
+    className="btn fw-bold px-4 py-3"
+    style={{
+      backgroundColor: "#bfff00",
+      color: "#000"
+    }}
   >
-    Create My Plan
-    <FaArrowRight className="ms-3" />
+    Create Fit Plan <FaArrowRight/>
   </button>
+)}
 </div>
+
 
         </form>
 

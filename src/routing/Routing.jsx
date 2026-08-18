@@ -9,6 +9,7 @@ import {
 import {
   Adminhome,
   Coachhome,
+  Error,
   Landingpage,
   Membercompleteprofile,
   Memberhome,
@@ -30,11 +31,13 @@ function Routing() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/updatepassword" element={<UpdatePassword />} />
           <Route path="/forgetpassword" element={<ForgetPassword />} />
-          <Route path="/admin-dashboard" element={<Adminhome />} />
-          <Route path="/coach-dashboard" element={<Coachhome />} />
+
 
           <Route path="/membercompleteprofile" element={ <ProtectedMemberPage><Membercompleteprofile /> </ProtectedMemberPage> }/>
           <Route path="/member-dashboard" element={ <ProtectedMemberPage> <Memberhome /> </ProtectedMemberPage> } />
+
+
+          <Route path="*" element={<Error/>}/>
         </Routes>
       </BrowserRouter>
     </>
