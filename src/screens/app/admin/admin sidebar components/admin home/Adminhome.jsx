@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 function Adminhome() {
-
-  
-
-
-
   return (
-    <div>
-      Admin
+    <div className='text-white'>
+      Home
     </div>
   )
 }

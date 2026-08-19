@@ -21,7 +21,7 @@ const [loading, setLoading] = useState(true);
     }
       if (!getError) {setUser(user);}
 
-      const { data, error } = await supabase.from("Auth").select("age,gender").eq("id", user.id).single();
+      const { data, error } = await supabase.from("Auth").select("age,gender,role").eq("id", user.id).single();
 
       if (!error) {setUserData(data);}
        setLoading(false);
@@ -190,39 +190,49 @@ const [loading, setLoading] = useState(true);
         if(!user){
             return children;
         }
-        if(user && !userData?.age && !userData?.gender){
+        if(user && !userData?.age && !userData?.gender && userData?.role === "member"){
 
             return <Navigate to={'/membercompleteprofile'} replace/>;
         }
         if(user && userData?.age && userData?.gender){
             return <Navigate to={'/member-dashboard'} replace/>;
         }
+
+        if(user && userData?.role === "coach"){
+            return <Navigate to='/admin-dashboard' replace/>
+        }
     }
-
-
+    
+    
     if (location.pathname === "/membercompleteprofile") {   
         if(!user){
             return <Navigate to={'/login'} replace/>;
         }
-        if(user && !userData?.age && !userData?.gender){ 
+        if(user && !userData?.age && !userData?.gender && userData?.role === "member"){ 
             return children;
         }
         if(user && userData?.age && userData?.gender){
             return <Navigate to={'/member-dashboard'} replace/>;
         }  
+        if(user && userData?.role === "coach"){
+            return <Navigate to='/admin-dashboard' replace/>
+        }
     }
-
-
+    
+    
     if (location.pathname === "/member-dashboard") {
         if(!user){
             return <Navigate to={'/login'} replace/>;
         }
-        if(user && !userData?.age && !userData?.gender){ 
+        if(user && !userData?.age && !userData?.gender && userData?.role === "member"){ 
             return <Navigate to={'/membercompleteprofile'} replace/>;
         }
         if(user && userData?.age && userData?.gender){
             return children;
         } 
+        if(user && userData?.role === "coach"){
+            return <Navigate to='/admin-dashboard' replace/>
+        }
     }
   return <div></div>;
 }

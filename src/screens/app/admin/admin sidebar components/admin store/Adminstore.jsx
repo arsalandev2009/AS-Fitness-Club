@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Coachhome() {
+function Adminstore() {
   return (
     <div>
-      coaach
+      Store
     </div>
   )
 }
 
-export default Coachhome
+export default Adminstore

@@ -84,7 +84,7 @@ function Header() {
           </a>
 
           <Link
-            to="/signup"
+            to="/login"
             style={{
               backgroundColor: "#bfff00",
               color: "#000",

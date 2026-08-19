@@ -46,23 +46,23 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      adminauth &&
-      loginData.email.trim() === adminauth.email.trim() &&
-      loginData.password.trim() === adminauth.password.trim()
-    ) {
-      Swal.fire({
-        icon: "success",
-        title: "Login Successfully!",
-        text: "Redirecting to dashboard...",
-        timer: 2500,
-        timerProgressBar: true,
-        showConfirmButton: false,
-      }).then(() => {
-        navigate("/admin-dashboard");
-      });
-      return;
-    }
+    // if (
+    //   adminauth &&
+    //   loginData.email.trim() === adminauth.email.trim() &&
+    //   loginData.password.trim() === adminauth.password.trim()
+    // ) {
+    //   Swal.fire({
+    //     icon: "success",
+    //     title: "Login Successfully!",
+    //     text: "Redirecting to dashboard...",
+    //     timer: 2500,
+    //     timerProgressBar: true,
+    //     showConfirmButton: false,
+    //   }).then(() => {
+    //     navigate("/admin-dashboard");
+    //   });
+    //   return;
+    // }
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email: loginData.email,
@@ -109,7 +109,7 @@ function Login() {
           timerProgressBar: true,
           showConfirmButton: false,
         }).then(() => {
-          navigate("/coach-dashboard");
+          navigate("/admin-dashboard");
         });
       }
     }

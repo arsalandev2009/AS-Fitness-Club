@@ -14,7 +14,7 @@ function Signup() {
   const [confirmpasswordsee, setConfirmPasswordsee] = useState(false);
 
   const [signupData, setSignupData] = useState({
-    role: "",
+    role: "member",
     name: "",
     email: "",
     password: "",
@@ -176,7 +176,7 @@ function Signup() {
 
             <form onSubmit={handleSubmit}>
               {/* Role */}
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 <label
                   className="form-label"
                   style={{
@@ -199,7 +199,7 @@ function Signup() {
                   <option value="coach">Coach</option>
                   <option value="member">Member</option>
                 </select>
-              </div>
+              </div> */}
 
               {/* Full Name */}
               <div className="mb-3">

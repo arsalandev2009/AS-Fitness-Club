@@ -1,21 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import {
-  ForgetPassword,
-  Login,
-  Signup,
-  UpdatePassword,
-} from "../screens/auth/auth";
-import {
-  Adminhome,
-  Coachhome,
-  Error,
-  Landingpage,
-  Membercompleteprofile,
-  Memberhome,
-} from "../screens/app/app";
-// import ProtectedRoutingMember from "./ProtectedRoutingMember";
-// import ProtectMemberHome from "./ProtectMemberHome";
+import {ForgetPassword,Login,Signup,UpdatePassword,} from "../screens/auth/auth";
+import {Admindashboard,Adminhome,Adminmembers,Adminsetting,Adminstore,Error,Landingpage,Membercompleteprofile,Memberhome,} from "../screens/app/app";
 import ProtectedMemberPage from "./ProtectedMemberPage";
 
 
@@ -32,6 +18,16 @@ function Routing() {
           <Route path="/updatepassword" element={<UpdatePassword />} />
           <Route path="/forgetpassword" element={<ForgetPassword />} />
 
+
+          <Route path="/admin-dashboard" element={<Admindashboard/>} >
+
+          <Route index element={<Adminhome/>} />
+          <Route path="admin-home" element={<Adminhome/>} />
+          <Route path="admin-member" element={<Adminmembers/>} />
+          <Route path="admin-store" element={<Adminstore/>} />
+          <Route path="admin-setting" element={<Adminsetting/>} />
+          
+          </Route>
 
           <Route path="/membercompleteprofile" element={ <ProtectedMemberPage><Membercompleteprofile /> </ProtectedMemberPage> }/>
           <Route path="/member-dashboard" element={ <ProtectedMemberPage> <Memberhome /> </ProtectedMemberPage> } />
