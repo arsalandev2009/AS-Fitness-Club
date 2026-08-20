@@ -5,38 +5,48 @@ import './Skeleton.css'
 function ProtectedMemberPage({children}) {
 
 
-    const navigate=useNavigate()
+    
+const [user, setUser] = useState(null);
+const [adminData,setAdminData]=useState()
+const [userData, setUserData] = useState();
+
 const [loading, setLoading] = useState(true);
-  const [userData, setUserData] = useState();
-  const [user, setUser] = useState(null);
 
   useEffect(() => {
+
     const getUser = async () => {
       const {data: { user },error: getError} = await supabase.auth.getUser();
-  if (getError || !user) {
+
+     if (getError || !user) {
       setUser(null); 
+      setUserData(null);
+      setAdminData(null)
       setLoading(false);
-      
       return;
     }
-      if (!getError) {setUser(user);}
+      setUser(user)
 
-      const { data, error } = await supabase.from("Auth").select("age,gender,role").eq("id", user.id).single();
+      const { data, error } = await supabase.from("Auth").select("age,gender,role").eq("id", user.id).maybeSingle();
 
       if (!error) {setUserData(data);}
+       setLoading(false);
+
+      const { data:adminData, error:adminError } = await supabase.from("adminAuth").select("role").eq("id", user.id).maybeSingle();
+
+      if (!adminError) {setAdminData(adminData);}
        setLoading(false);
     };
 
     getUser();
 
 
-      }, []);
+      },[] );
 
 
 
   const location = useLocation();
 
-                  if (loading) {
+if (loading) {
         return (
   <div
     className="d-flex justify-content-center align-items-center"
@@ -198,7 +208,7 @@ const [loading, setLoading] = useState(true);
             return <Navigate to={'/member-dashboard'} replace/>;
         }
 
-        if(user && userData?.role === "coach"){
+        if(user && adminData?.role === "coach"){
             return <Navigate to='/admin-dashboard' replace/>
         }
     }
@@ -214,7 +224,7 @@ const [loading, setLoading] = useState(true);
         if(user && userData?.age && userData?.gender){
             return <Navigate to={'/member-dashboard'} replace/>;
         }  
-        if(user && userData?.role === "coach"){
+        if(user && adminData?.role === "coach"){
             return <Navigate to='/admin-dashboard' replace/>
         }
     }
@@ -230,7 +240,7 @@ const [loading, setLoading] = useState(true);
         if(user && userData?.age && userData?.gender){
             return children;
         } 
-        if(user && userData?.role === "coach"){
+        if(user && adminData?.role === "coach"){
             return <Navigate to='/admin-dashboard' replace/>
         }
     }

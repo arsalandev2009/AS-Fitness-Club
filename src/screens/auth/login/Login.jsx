@@ -9,112 +9,150 @@ function Login() {
   
   const navigate = useNavigate();
 
+const [loginData, setLoginData] = useState({
+  email: "",
+  password: "",
+});
 
+const [passwordsee, setPasswordsee] = useState(false);
 
-  const [loginData, setLoginData] = useState({
-    email: "",
-    password: "",
-  });
+const handleChange = (e) => {
+  setLoginData((prev) => ({
+    ...prev,
+    [e.target.name]: e.target.value,
+  }));
+};
 
-  const [adminauth, setAdminauth] = useState("");
+// const handleSubmit = async (e) => {
+//   e.preventDefault();
 
-  const [passwordsee, setPasswordsee] = useState(false);
+//   // =========================
+//   // 1. Supabase Login
+//   // =========================
+//   const { data, error } = await supabase.auth.signInWithPassword({
+//     email: loginData.email,
+//     password: loginData.password,
+//   });
 
-  useEffect(() => {
-    const getadmindata = async () => {
-      const { data: admindata, error: adminerror } = await supabase
-        .from("admin-auth")
-        .select("email,password")
-        .single();
-      if (adminerror) {
-        console.log(adminerror);
-        return;
-      }
-      setAdminauth(admindata);
-    };
-    getadmindata();
-  }, []);
+//   if (error) {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Login Failed",
+//       text: error.message,
+//     });
+//     return;
+//   }
 
+//   const userId = data.user.id;
 
-  const handleChange = (e) => {
-    setLoginData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+//   // =========================
+//   // 2. Check Member
+//   // =========================
+//   const { data: memberData, error: memberError } = await supabase
+//     .from("Auth")
+//     .select("role, age, gender, height, weight")
+//     .eq("id", userId)
+//     .maybeSingle();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+//   if (memberError) {
+//     await supabase.auth.signOut();
 
-    // if (
-    //   adminauth &&
-    //   loginData.email.trim() === adminauth.email.trim() &&
-    //   loginData.password.trim() === adminauth.password.trim()
-    // ) {
-    //   Swal.fire({
-    //     icon: "success",
-    //     title: "Login Successfully!",
-    //     text: "Redirecting to dashboard...",
-    //     timer: 2500,
-    //     timerProgressBar: true,
-    //     showConfirmButton: false,
-    //   }).then(() => {
-    //     navigate("/admin-dashboard");
-    //   });
-    //   return;
-    // }
+//     Swal.fire({
+//       icon: "error",
+//       title: "Error",
+//       text: memberError.message,
+//     });
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: loginData.email,
-      password: loginData.password,
-    });
+//     return;
+//   }
 
-    if (error) {
-      Swal.fire({
-        icon: "error",
-        title: error.message,
-      });
-      return;
-    } else {
-      const { data: getData, error: getError } = await supabase
-        .from("Auth")
-        .select("role, age, gender, height, weight")
-        .eq("id", data.user.id)
-        .maybeSingle();
+//   // =========================
+//   // 3. If Member
+//   // =========================
+//   if (memberData?.role === "member") {
+//     window.location.reload()
+//     navigate("/membercompleteprofile");
+//     return;
+//   }
 
-      if (getError) {
-        alert(getError.message);
-        return;
-      } else if (getData.role === "member") {
-        // Swal.fire({
-        //   icon: "success",
-        //   title: "Login Successfully!",
-        //   text: "Redirecting to dashboard...",
-        //   timer: 2500,
-        //   timerProgressBar: true,
-        //   showConfirmButton: false,
-        // }).then(() => {
-        
-        // });
-            navigate("/membercompleteprofile");
-              window.location.reload()
-         
-        return;
-      } else if (getData.role === "coach") {
-        Swal.fire({
-          icon: "success",
-          title: "Login Successfully!",
-          text: "Redirecting to dashboard...",
-          timer: 2500,
-          timerProgressBar: true,
-          showConfirmButton: false,
-        }).then(() => {
-          navigate("/admin-dashboard");
-        });
-      }
+//   // =========================
+//   // 4. Check Coach
+//   // =========================
+//   const { data: coachData, error: coachError } = await supabase
+//     .from("adminAuth")
+//     .select("role")
+//     .eq("id", userId)
+//     .maybeSingle();
+
+//   if (coachError) {
+//     await supabase.auth.signOut();
+
+//     Swal.fire({
+//       icon: "error",
+//       title: "Error",
+//       text: coachError.message,
+//     });
+
+//     return;
+//   }
+
+//   // =========================
+//   // 5. If Coach
+//   // =========================
+//   if (coachData?.role === "coach") {
+//     Swal.fire({
+//       icon: "success",
+//       title: "Login Successfully!",
+//       text: "Redirecting to dashboard...",
+//       timer: 1500,
+//       timerProgressBar: true,
+//       showConfirmButton: false,
+//     }).then(() => {
+//       navigate("/admin-dashboard");
+//     });
+
+//     return;
+//   }
+
+//   // =========================
+//   // 6. Unknown Role
+//   // =========================
+//   await supabase.auth.signOut();
+
+//   Swal.fire({
+//     icon: "error",
+//     title: "Access Denied",
+//     text: "Your account does not have a valid role.",
+//   });
+// };
+
+const handleSubmit = async(e)=>{
+  e.preventDefault()
+
+  const {data,error} = await supabase.auth.signInWithPassword({email:loginData.email,password:loginData.password})
+  if(error){
+    console.log(error.message)
+    return
+  }
+
+    const {data:memberData,error:memberError} = await supabase.from('Auth').select('role').eq('id',data.user.id).maybeSingle()
+    
+    if(memberData?.role === 'member'){
+      window.location.reload()
+      navigate('/membercompleteprofile',{replace:true})
+      return
+    }
+    const {data:coachData,error:coachError} = await supabase.from('adminAuth').select('role').eq('id',data.user.id).maybeSingle()
+
+    if(coachData?.role === 'coach'){
+
+      navigate('/admin-dashboard' , {replace : true})
+      return
+
     }
   
-  };
+}
+
 
   return (
     <div

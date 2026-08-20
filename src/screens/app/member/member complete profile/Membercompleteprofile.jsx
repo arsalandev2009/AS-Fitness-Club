@@ -30,12 +30,11 @@ import { groq } from "../../../../utils/groqAPI";
 
 
 function MemberCompleteProfile() {
-  // const dispatch =useDispatch()
-  
+ 
   const navigate=useNavigate()
 
-
-
+  const [logoutPopup,setLogoutPopup]=useState()
+  const [generating, setGenerating] = useState(false);
   const [formData, setFormData] = useState({
     age: "",
     gender: "",
@@ -61,16 +60,12 @@ function MemberCompleteProfile() {
     });
   };
 
-const [generating, setGenerating] = useState(false);
 
   const handleSubmit = async (e) => {
   e.preventDefault();
  setGenerating(true);
   
-  const {
-    data: { user },
-    error: userError,
-  } = await supabase.auth.getUser();
+  const { data: { user }, error: userError, } = await supabase.auth.getUser();
 
   if (userError || !user) {
     setGenerating(false)
@@ -79,23 +74,7 @@ const [generating, setGenerating] = useState(false);
   }
 
   // Existing user ki Auth table wali row update karo
-  const { data: getData, error: getError } = await supabase
-    .from("Auth")
-    .update({
-      age: formData.age,
-      gender: formData.gender,
-      height: formData.height,
-      weight: formData.weight,
-      goal: formData.goal,
-      activity: formData.activity,
-      trainingExperience: formData.trainingExperience,
-      days: formData.daysPerWeek,
-      equiqments: formData.equipment,
-      dietPreference: formData.diet,
-      allergies: formData.allergies,
-      budget: formData.budget,
-    })
-    .eq("id", user.id);
+  const { data: getData, error: getError } = await supabase.from("Auth").update({ age: formData.age, gender: formData.gender, height: formData.height, weight: formData.weight, goal: formData.goal, activity: formData.activity, trainingExperience: formData.trainingExperience, days: formData.daysPerWeek, equiqments: formData.equipment, dietPreference: formData.diet, allergies: formData.allergies, budget: formData.budget, }) .eq("id", user.id);
 
   if (getError) {
     console.log(getError);
@@ -207,28 +186,19 @@ Do NOT add any additional fields.
 The final JSON MUST be less than 1000 characters.
 
 `;
-
+try{
   const handleGroq = await groq.chat.completions.create({
-model: "openai/gpt-oss-120b",
-    messages: [
-      
-      {
-        role: "user",
-        content: prompt,
-      },
-    ],
-    response_format:{
-      type:'json_object'
-    }
+    model: "openai/gpt-oss-120b",
+    messages: [{ role: "user", content: prompt, }],
+    response_format:{ type:'json_object' }
     });
     
     
     const groqResult = handleGroq.choices[0].message.content
 
-    
     const {data:putData,error:putError} = await supabase.from('Auth').update({promptResult:groqResult}).eq("id",user.id).single()
     if(putError){
-          console.log(putError.message);
+    console.log(putError.message);
     alert("Error saving plan");
     setGenerating(false);
     return;
@@ -237,12 +207,26 @@ model: "openai/gpt-oss-120b",
     setGenerating(false)
     navigate("/member-dashboard");
     window.location.reload()
-      
+  }catch(error){
+
+    const {data,geterror}=await supabase.from('Auth').update({age:null,gender:null}).eq('id',user.id)
+
+    console.log("Groq Error:", geterror);
+
+  Swal.fire({
+    icon: "error",
+    title: "Generation Failed",
+    text: "Your AI plan could not be generated. Please try again.",
+  });
+
+  setGenerating(false);
+  }
       
       // Redux mein bhi save
       // dispatch(saveMemberData(formData));
       
     };
+
 const handleLogout=async(e)=>{
 e.preventDefault()
 
@@ -255,30 +239,78 @@ navigate('/')
       {/* HEADER */}
 
      <header className="fit-header border-bottom">
+
   <div className="container-fluid">
     <div className="d-flex justify-content-between align-items-center">
 
-      <img
-        src={Logo}
-        alt=""
-        width={220}
-        className="my-2"
-      />
+      <img src={Logo} alt="" width={220} className="my-2" />
 
-      <button
-        onClick={handleLogout}
-        className="btn px-4 py-2 fw-semibold rounded-3"
-        style={{
-          backgroundColor: "#bfff00",
-          color: "#000",
-          border: "none",
-        }}
-      >
-        Logout
-      </button>
+      <button onClick={()=>{setLogoutPopup(true)}} className="btn px-4 py-2 fw-semibold rounded-3" style={{ backgroundColor: "#bfff00", color: "#000", border: "none", }} > Logout </button>
 
     </div>
   </div>
+
+  {logoutPopup && (
+  <div
+    className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+    style={{
+      backgroundColor: "rgba(0, 0, 0, 0.75)",
+      backdropFilter: "blur(6px)",
+      zIndex: "9999",
+    }}
+  >
+    <div
+      className="rounded-4 p-4 text-center"
+      style={{
+        width: "90%",
+        maxWidth: "400px",
+        backgroundColor: "#111827",
+        border: "1px solid #bfff00",
+        boxShadow: "0 0 30px rgba(191, 255, 0, 0.15)",
+      }}
+    >
+      <h4
+        className="fw-bold mb-2"
+        style={{ color: "#bfff00" }}
+      >
+        Logout?
+      </h4>
+
+      <p className="text-secondary mb-4">
+        Are you sure you want to logout from your account?
+      </p>
+
+      <div className="d-flex justify-content-center gap-3">
+
+        <button
+          onClick={() => setLogoutPopup(false)}
+          className="btn px-4 py-2 fw-semibold rounded-3"
+          style={{
+            backgroundColor: "transparent",
+            color: "#fff",
+            border: "1px solid #6b7280",
+          }}
+        >
+          Cancel
+        </button>
+
+        <button
+          onClick={handleLogout}
+          className="btn px-4 py-2 fw-semibold rounded-3"
+          style={{
+            backgroundColor: "#bfff00",
+            color: "#000",
+            border: "none",
+          }}
+        >
+          Logout
+        </button>
+
+      </div>
+    </div>
+  </div>
+)} 
+
 </header>
 
 
