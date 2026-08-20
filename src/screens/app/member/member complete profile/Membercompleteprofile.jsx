@@ -29,7 +29,7 @@ import { supabase } from "../../../../utils/supabase";
 import { groq } from "../../../../utils/groqAPI";
 
 
-function MemberCompleteProfile() {
+function Membercompleteprofile() {
  
   const navigate=useNavigate()
 
@@ -1287,4 +1287,4 @@ navigate('/')
   );
 }
 
-export default MemberCompleteProfile;
+export default Membercompleteprofile;

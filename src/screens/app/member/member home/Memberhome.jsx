@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import Logo from "../../../../assets/FitPlan_AI_Individual_Assets/logo.png";
 import { supabase } from "../../../../utils/supabase";
 import { Link,  useNavigate } from "react-router-dom";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart} from "react-icons/fa";
+import { TiShoppingCart } from "react-icons/ti";
 
 function Memberhome() {
+  const navigate = useNavigate();
   const [prompt, setPrompt] = useState(``);
+  const [logoutPopup,setLogoutPopup]=useState(false)
+
 
   useEffect(() => {
     const getingPrompt = async () => {
@@ -29,7 +33,6 @@ function Memberhome() {
     getingPrompt();
   }, []);
 
-  const navigate = useNavigate();
   const handleLogout = async (e) => {
     e.preventDefault();
     const { data, error } = await supabase.auth.signOut();
@@ -38,7 +41,6 @@ function Memberhome() {
     }
   };
 
-  const [logoutPopup,setLogoutPopup]=useState(false)
 
   return (
     <div style={{ backgroundColor: "black" }}>
@@ -119,10 +121,9 @@ function Memberhome() {
       </header>
 
       {prompt && (
-        <div
-          className="container-fluid bg-black text-white min-vh-100 py-5"
-          style={{ marginTop: "50px" }}
-        >
+
+        <div className="container-fluid bg-black text-white min-vh-100 py-5" style={{ marginTop: "50px" }} >
+
           {/* HEADER */}
           <div className="container mb-5">
             <div className="text-center">
@@ -136,10 +137,11 @@ function Memberhome() {
             </div>
           </div>
 
-  {/* ================= GROCERY ================= */}
+          {/* ================= GROCERY ================= */}
           {prompt?.g?.length > 0 && (
             <div className="container mb-5">
               <h3 className="fw-bold mb-4">Grocery List</h3>
+              
 
               <div className="row g-3">
                 {prompt.g.map((item, index) => (
@@ -158,6 +160,11 @@ function Memberhome() {
                   </div>
                 ))}
               </div>
+
+              <div className="mt-4  text-end">
+                <button onClick={()=>{navigate('/ComingSoon')}} className="btn fw-bold px-4 py-2 rounded-3 d-inline-flex align-items-center gap-2" style={{ backgroundColor: "#bfff00", color: "#000000", boxShadow: "0 0 15px rgba(191, 255, 0, 0.4)", transition: "all 0.3s ease" }} > Shop Your Groceries <TiShoppingCart color="#000000" size={24} /> </button>
+              </div>
+
             </div>
           )}
           
@@ -427,8 +434,6 @@ function Memberhome() {
               </div>
             </div>
           )}
-
-        
 
           {/* ================= PROGRESS ================= */}
           {prompt?.p && (

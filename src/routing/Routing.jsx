@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import {ForgetPassword,Login,Signup,UpdatePassword,} from "../screens/auth/auth";
-import {Admindashboard,Adminhome,Adminmembers,Adminsetting,Adminstore,Error,Landingpage,Membercompleteprofile,Memberhome,} from "../screens/app/app";
+import {Admindashboard,Adminhome,Adminmembers,Adminsetting,Adminstore,ComingSoon,Error,Landingpage,Membercompleteprofile,Memberhome, Memberstore,} from "../screens/app/app";
 import ProtectedMemberPage from "./ProtectedMemberPage";
 
 
@@ -31,8 +31,9 @@ function Routing() {
 
           <Route path="/membercompleteprofile" element={ <ProtectedMemberPage><Membercompleteprofile /> </ProtectedMemberPage> }/>
           <Route path="/member-dashboard" element={ <ProtectedMemberPage> <Memberhome /> </ProtectedMemberPage> } />
+          {/* <Route path="/member-store" element={<Memberstore/>}/> */}
 
-
+          <Route path="/ComingSoon" element={<ComingSoon/>}/>
           <Route path="*" element={<Error/>}/>
         </Routes>
       </BrowserRouter>
