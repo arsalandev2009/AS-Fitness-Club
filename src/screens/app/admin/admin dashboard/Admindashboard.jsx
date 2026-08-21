@@ -194,35 +194,12 @@ function Admindashboard() {
     </div>
 
 
-<div className="desktop d-none d-md-flex"
-  style={{
-    minHeight: "100dvh",
-    backgroundColor: "#000",
-  }}
->
+<div className="desktop d-none d-md-flex" style={{ minHeight: "100dvh", backgroundColor: "#000", }} >
   
   {/* Sidebar */}
-  <div
-    className="adminsidebar border-end d-flex flex-column px-2 gap-4 flex-shrink-0"
-    style={{
-      minHeight: "100dvh",
-      paddingTop: "90px",
-      backgroundColor: "#0b0f19",
-      borderColor: "#bfff00",
-    }}
-  >
+  <div className="adminsidebar border-end d-flex flex-column px-2 gap-4 flex-shrink-0" style={{ minHeight: "100dvh", paddingTop: "90px", backgroundColor: "#0b0f19", borderColor: "#bfff00", }} >
 
-  <NavLink
-  end
-  className="sidebar-btn btn fs-5 px-3 py-2 rounded-3 text-decoration-none fw-semibold"
-  style={{
-    backgroundColor: "#111827",
-    color: "#bfff00",
-    border: "1px solid #bfff00",
-    boxShadow: "0 0 12px rgba(191, 255, 0, 0.15)",
-  }}
-  to="/admin-dashboard"
->
+  <NavLink end className="sidebar-btn btn fs-5 px-3 py-2 rounded-3 text-decoration-none fw-semibold" style={{ backgroundColor: "#111827", color: "#bfff00", border: "1px solid #bfff00", boxShadow: "0 0 12px rgba(191, 255, 0, 0.15)", }} to="admin-home" >
   Home
 </NavLink>
 

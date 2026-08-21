@@ -130,9 +130,13 @@ const handleSubmit = async(e)=>{
   e.preventDefault()
 
   const {data,error} = await supabase.auth.signInWithPassword({email:loginData.email,password:loginData.password})
-  if(error){
-    console.log(error.message)
-    return
+ if (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Login Failed",
+      text: error.message,
+    });
+    return;
   }
 
     const {data:memberData,error:memberError} = await supabase.from('Auth').select('role').eq('id',data.user.id).maybeSingle()
