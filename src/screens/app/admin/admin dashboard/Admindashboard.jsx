@@ -173,7 +173,7 @@ function Admindashboard() {
         )}
 
        
-        <div style={{ width: "100%", minHeight: "100dvh", padding:'80px 0px 0px 10px' , color:'white' }}><Outlet /></div>
+        <div style={{ width: "100%", minHeight: "100dvh", padding:'120px 0px 0px 10px' , color:'white' }}><Outlet /></div>
 
       </div>
 

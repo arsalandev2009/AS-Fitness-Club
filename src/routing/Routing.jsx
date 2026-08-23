@@ -31,7 +31,7 @@ function Routing() {
 
           <Route path="/membercompleteprofile" element={ <ProtectedMemberPage><Membercompleteprofile /> </ProtectedMemberPage> }/>
           <Route path="/member-dashboard" element={ <ProtectedMemberPage> <Memberhome /> </ProtectedMemberPage> } />
-          {/* <Route path="/member-store" element={<Memberstore/>}/> */}
+          <Route path="/member-store" element={<Memberstore/>}/>
 
           <Route path="/ComingSoon" element={<ComingSoon/>}/>
           <Route path="*" element={<Error/>}/>
