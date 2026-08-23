@@ -4,14 +4,19 @@ import { supabase } from "../../../../utils/supabase";
 import { Link,  useNavigate } from "react-router-dom";
 import { FaHeart} from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
+import {MemberDashboardSkeleton} from '../../../../skeleton/skeleton'
 
 function Memberhome() {
   const navigate = useNavigate();
   const [prompt, setPrompt] = useState(``);
   const [logoutPopup,setLogoutPopup]=useState(false)
 
+  const [showSkeleton,setShowSkeleton]=useState(true)
+
+
 
   useEffect(() => {
+
     const getingPrompt = async () => {
       const {
         data: { user },
@@ -31,6 +36,13 @@ function Memberhome() {
       }
     };
     getingPrompt();
+
+
+   const timer = setTimeout(()=>{
+      setShowSkeleton(false)
+    },500)
+    return()=>clearTimeout(timer)
+
   }, []);
 
   const handleLogout = async (e) => {
@@ -43,6 +55,14 @@ function Memberhome() {
 
 
   return (
+
+ <>
+ {showSkeleton ? (
+
+  <MemberDashboardSkeleton/>
+
+ ):(
+
     <div style={{ backgroundColor: "black" }}>
 
       <header className="fit-header border-bottom" style={{ position: "fixed", zIndex: "999", backgroundColor: "black", left: "0", right: "0", top: "0", }} >
@@ -562,6 +582,9 @@ function Memberhome() {
         </div>
       </footer>
     </div>
+  )} 
+</>
+
   );
 }
 

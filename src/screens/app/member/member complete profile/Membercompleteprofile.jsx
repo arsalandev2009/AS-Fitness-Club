@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Logo from '../../../../assets/FitPlan_AI_Individual_Assets/logo.png'
 import "./MemberCompleteProfile.css";
@@ -30,7 +30,16 @@ import { groq } from "../../../../utils/groqAPI";
 
 
 function Membercompleteprofile() {
- 
+
+  const [showSkeleton,setShowSkeleton]=useState(true)
+
+ useEffect(()=>{
+     const timer = setTimeout(()=>{
+      setShowSkeleton(false)
+    },500)
+    return()=>clearTimeout(timer)
+ },[])
+
   const navigate=useNavigate()
 
   const [logoutPopup,setLogoutPopup]=useState()
@@ -234,7 +243,9 @@ const {data} = await supabase.auth.signOut()
 navigate('/')
 }
   return (
-    <div className="fit-page min-vh-100 text-white">
+    
+ 
+     <div className="fit-page min-vh-100 text-white">
 
       {/* HEADER */}
 
@@ -1118,51 +1129,6 @@ navigate('/')
 
                   </div>
 
-
-                  {/* <div className="col-12 col-lg-3">
-
-                    <label className="form-label fit-label">
-                      Preferred Cuisine{" "}
-                      <span className="text-secondary">
-                        (optional)
-                      </span>
-                    </label>
-
-                    <select
-                      name="cuisine"
-                      value={formData.cuisine}
-                      onChange={handleChange}
-                      className="form-select fit-input"
-                    >
-
-                      <option value="">
-                        Select cuisine
-                      </option>
-
-                      <option value="Pakistani">
-                        Pakistani
-                      </option>
-
-                      <option value="Indian">
-                        Indian
-                      </option>
-
-                      <option value="Mediterranean">
-                        Mediterranean
-                      </option>
-
-                      <option value="Chinese">
-                        Chinese
-                      </option>
-
-                      <option value="Western">
-                        Western
-                      </option>
-
-                    </select>
-
-                  </div> */}
-
                 </div>
 
               </div>
@@ -1284,6 +1250,7 @@ navigate('/')
       </main>
 
     </div>
+ 
   );
 }
 
