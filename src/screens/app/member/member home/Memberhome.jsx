@@ -181,9 +181,9 @@ function Memberhome() {
                 ))}
               </div>
 
-              <div className="mt-4  text-end">
+              {/* <div className="mt-4  text-end">
                 <button onClick={()=>{navigate('/ComingSoon')}} className="btn fw-bold px-4 py-2 rounded-3 d-inline-flex align-items-center gap-2" style={{ backgroundColor: "#bfff00", color: "#000000", boxShadow: "0 0 15px rgba(191, 255, 0, 0.4)", transition: "all 0.3s ease" }} > Shop Your Groceries <TiShoppingCart color="#000000" size={24} /> </button>
-              </div>
+              </div> */}
 
             </div>
           )}

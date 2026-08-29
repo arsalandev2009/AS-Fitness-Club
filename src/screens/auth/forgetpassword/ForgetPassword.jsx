@@ -15,7 +15,7 @@ function ForgetPassword() {
     e.preventDefault();
 
     const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "https://asdietplan.vercel.app/updatepassword",
+      redirectTo: `${window.location.origin}/updatepassword`,
     });
 
     if (error) {
