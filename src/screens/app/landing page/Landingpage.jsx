@@ -25,9 +25,9 @@ function Landingpage() {
       <Header/>
 
       {/* ================= HERO ================= */}
-      <section id="home" className="hero-section">
-        <div className="container">
-          <div className="row align-items-center min-vh-100">
+      <section id="home" className="hero-section" style={{marginTop:'100px'}}>
+        <div className="container" >
+          <div className="row align-items-center min-dvh-100">
             {/* LEFT CONTENT */}
             <div className="col-12 col-lg-6">
               <p className="hero-badge">✨ AI-POWERED FITNESS COMPANION</p>
