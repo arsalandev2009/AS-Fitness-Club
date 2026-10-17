@@ -59,7 +59,13 @@ function Memberhome() {
   const deletePlan = async()=>{
           const { data: { user }, error: getError, } = await supabase.auth.getUser();
           const {data,error}= await supabase.from("Auth").update({age:null,gender:null,promptResult:null,role:null}).eq("id",user.id).select("age,gender,role,promptResult").single()
-          console.log(data)
+          if(!error){
+            alert('Plan deleted Successfully')
+            window.location.reload()
+            return
+
+          }
+          alert(error)
   }
   return (
 
