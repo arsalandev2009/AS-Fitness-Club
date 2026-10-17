@@ -417,7 +417,7 @@ if (loading) {
         if(!user){
             return <Navigate to={'/login'} replace/>;
         }
-        if(user && !userData?.age && !userData?.gender && userData?.role === "member"){ 
+        if(user && !userData?.age && !userData?.gender ){ 
             return children;
         }
         if(user && userData?.age && userData?.gender){

@@ -254,7 +254,7 @@ navigate('/')
   <div className="container-fluid">
     <div className="d-flex justify-content-between align-items-center">
 
-      <img src={Logo} alt="" width={220} className="my-2" />
+      <img src={Logo} alt="" width={180} className="my-2" />
 
       <button onClick={()=>{setLogoutPopup(true)}} className="btn px-4 py-2 fw-semibold rounded-3" style={{ backgroundColor: "#bfff00", color: "#000", border: "none", }} > Logout </button>
 

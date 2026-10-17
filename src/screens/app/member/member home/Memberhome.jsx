@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../../../../assets/FitPlan_AI_Individual_Assets/logo.png";
 import { supabase } from "../../../../utils/supabase";
-import { Link,  useNavigate } from "react-router-dom";
+import { Link,  replace,  useNavigate } from "react-router-dom";
 import { FaHeart} from "react-icons/fa";
 import { TiShoppingCart } from "react-icons/ti";
 import {MemberDashboardSkeleton} from '../../../../skeleton/skeleton'
@@ -28,7 +28,9 @@ function Memberhome() {
         .select("promptResult")
         .eq("id", user.id)
         .single();
-
+      if(!data.promptResult){
+        navigate('/membercompleteprofile',replace)
+      }
       if (!error) {
         const parsedPrompt = JSON.parse(data.promptResult);
 
@@ -54,6 +56,11 @@ function Memberhome() {
   };
 
 
+  const deletePlan = async()=>{
+          const { data: { user }, error: getError, } = await supabase.auth.getUser();
+          const {data,error}= await supabase.from("Auth").update({age:null,gender:null,promptResult:null,role:null}).eq("id",user.id).select("age,gender,role,promptResult").single()
+          console.log(data)
+  }
   return (
 
  <>
@@ -142,7 +149,7 @@ function Memberhome() {
 
       {prompt && (
 
-        <div className="container-fluid bg-black text-white min-vh-100 py-5" style={{ marginTop: "50px" }} >
+        <div className="container-fluid bg-black text-white min-vh-100" style={{ paddingTop: "100px" }} >
 
           {/* HEADER */}
           <div className="container mb-5">
@@ -531,7 +538,9 @@ function Memberhome() {
 
                 <p className="text-secondary mb-0">{prompt.safe}</p>
               </div>
+              <button onClick={deletePlan} className="btn px-4 py-2 fw-semibold rounded-3" style={{margin:'30px 0px' ,backgroundColor: "#bfff00", color: "#000", border: "none",width:'100%',textAlign:'center'}}>Delete This plan</button>
             </div>
+
           )}
         </div>
       )}
