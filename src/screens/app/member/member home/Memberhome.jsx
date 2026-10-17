@@ -63,7 +63,7 @@ function Memberhome() {
             alert('Plan deleted Successfully')
             window.location.reload()
             return
-
+x
           }
           alert(error)
   }
