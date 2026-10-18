@@ -138,7 +138,13 @@ const handleSubmit = async(e)=>{
     });
     return;
   }
-
+    await Swal.fire({
+      icon: "success",
+      title: "Success",
+      text: "Logedin Successfully",
+      showConfirmButton: false,   
+      timer: 1500    
+    });
     const {data:memberData,error:memberError} = await supabase.from('Auth').select('role').eq('id',data.user.id).maybeSingle()
     
     if(memberData?.role === 'member'){
