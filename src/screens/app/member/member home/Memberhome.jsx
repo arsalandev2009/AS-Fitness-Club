@@ -58,9 +58,15 @@ function Memberhome() {
 
   const deletePlan = async()=>{
           const { data: { user }, error: getError, } = await supabase.auth.getUser();
-          const {data,error}= await supabase.from("Auth").update({age:null,gender:null,promptResult:null,role:null}).eq("id",user.id).select("age,gender,role,promptResult").single()
-          console.log(data)
+          const {data,error}= await supabase.from("Auth").update({age:null,gender:null,promptResult:null}).eq("id",user.id).select("age,gender,promptResult").single()
+          if(!error){
+            window.location.reload()
+            return
+          }
+          console.log(error)
+          alert('Server Error')
   }
+
   return (
 
  <>
