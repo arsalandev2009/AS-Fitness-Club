@@ -58,6 +58,7 @@ function Memberhome() {
 
   const deletePlan = async()=>{
           const { data: { user }, error: getError, } = await supabase.auth.getUser();
+
           const {data,error}= await supabase.from("Auth").update({age:null,gender:null,promptResult:null}).eq("id",user.id).select("age,gender,promptResult").single()
           if(!error){
             window.location.reload()
