@@ -8,6 +8,7 @@ import {MemberDashboardSkeleton} from '../../../../skeleton/skeleton'
 
 function Memberhome() {
   const navigate = useNavigate();
+  const [deletePlanPopup,setDeletePlanPopup] = useState(false)
   const [prompt, setPrompt] = useState(``);
   const [logoutPopup,setLogoutPopup]=useState(false)
 
@@ -91,6 +92,23 @@ function Memberhome() {
           </div>
         </div>
 
+{/* {deletePlanPopup && (
+  <><button onClick={()=>{setDeletePlanPopup(false)}}>Cancel</button>
+  <button onClick={deletePlan}>Delete</button></>
+)} */}
+  {deletePlanPopup && (
+  <div className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.75)", backdropFilter: "blur(6px)", zIndex: "9999", }} >
+    <div className="rounded-4 p-4 text-center" style={{ width: "90%", maxWidth: "400px", backgroundColor: "#111827", border: "1px solid #bfff00", boxShadow: "0 0 30px rgba(191, 255, 0, 0.15)", }} >
+      <h4 className="fw-bold mb-2" style={{ color: "#bfff00" }} > Delete? </h4>
+      <p className="text-secondary mb-4"> Are you sure you want to Delete from your Fitness Plan? </p>
+      <div className="d-flex justify-content-center gap-3">
+        <button onClick={() => setDeletePlanPopup(false)} className="btn px-4 py-2 fw-semibold rounded-3" style={{ backgroundColor: "transparent", color: "#fff", border: "1px solid #6b7280", }} > Cancel </button>
+        <button onClick={deletePlan} className="btn px-4 py-2 fw-semibold rounded-3" style={{ backgroundColor: "#bfff00", color: "#000", border: "none", }} > {deletePlan? 'Delete' : 'deleting'} </button>
+      </div>
+    </div>
+  </div>
+  )} 
+
   {logoutPopup && (
   <div
     className="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
@@ -150,7 +168,7 @@ function Memberhome() {
       </div>
     </div>
   </div>
-)} 
+  )} 
 
       </header>
 
@@ -545,7 +563,7 @@ function Memberhome() {
 
                 <p className="text-secondary mb-0">{prompt.safe}</p>
               </div>
-              <button onClick={deletePlan} className="btn px-4 py-2 fw-semibold rounded-3" style={{margin:'30px 0px' ,backgroundColor: "#bfff00", color: "#000", border: "none",width:'100%',textAlign:'center'}}>Delete This plan</button>
+              <button onClick={()=>{setDeletePlanPopup(true)}} className="btn px-4 py-2 fw-semibold rounded-3" style={{margin:'30px 0px' ,backgroundColor: "#bfff00", color: "#000", border: "none",width:'100%',textAlign:'center'}}>Delete This plan</button>
             </div>
 
           )}
