@@ -144,24 +144,30 @@ const handleSubmit = async(e)=>{
       text: "Logedin Successfully",
       showConfirmButton: false,   
       timer: 1500    
-    });
+    })
     const {data:memberData,error:memberError} = await supabase.from('Auth').select('role').eq('id',data.user.id).maybeSingle()
     
     if(memberData?.role === 'member'){
       window.location.reload()
       navigate('/membercompleteprofile',{replace:true})
+
       return
     }
-    const {data:coachData,error:coachError} = await supabase.from('adminAuth').select('role').eq('id',data.user.id).maybeSingle()
+    const {data:coachData,error:coachError} = await supabase.from('adminAuth').select('role').single()
+ 
+    // console.log(coachData)
 
     if(coachData?.role === 'coach'){
 
+
       navigate('/admin-dashboard' , {replace : true})
+
       return
 
     }
+    
   
-}
+  }
 
 
   return (
